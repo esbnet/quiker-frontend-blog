@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react";
+"use client";
 
 import { Anton } from "next/font/google";
 
-const titleMain = Anton({ subsets: ["latin"], weight: "400" });
-
 import type { PostProps } from "@/app/types/types";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import useControllers from "@/hooks/useControllers";
 import Image, { type StaticImageData } from "next/image";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa";
@@ -17,80 +12,15 @@ import { format, formatDistanceToNow } from "date-fns";
 import { ptBR as locale } from "date-fns/locale";
 import Link from "next/link";
 
-export default function PostsMostRecent() {
-	const { postController } = useControllers();
-	const [posts, setPosts] = useState<PostProps[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
+const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
-	useEffect(() => {
-		loadPosts();
-	}, []);
+interface PostsListProps {
+	posts: PostProps[];
+}
 
-	const loadPosts = async () => {
-		try {
-			setIsLoading(true);
-			const response = await postController.getAllPosts();
-			setPosts(response);
-		} catch (err) {
-			setError("Erro ao carregar posts");
-			console.error("Error:", err);
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
-	if (isLoading) {
-		return (
-			<>
-				<div className="flex items-center space-x-4">
-					<Skeleton className="rounded-sm w-12 h-12" />
-					<div className="space-y-2">
-						<Skeleton className="w-[250px] h-4" />
-						<Skeleton className="w-[200px] h-4" />
-					</div>
-				</div>
-				<div className="flex items-center space-x-4">
-					<Skeleton className="rounded-sm w-12 h-12" />
-					<div className="space-y-2">
-						<Skeleton className="w-[250px] h-4" />
-						<Skeleton className="w-[200px] h-4" />
-					</div>
-				</div>
-			</>
-		);
-	}
-
-	if (error) {
-		return (
-			<div className="bg-red-100 px-4 py-3 border border-red-400 rounded text-red-700">
-				<p>{error}</p>
-			</div>
-		);
-	}
-
-	if (posts.length === 0) {
-		return (
-			<div className="p-4 text-center">
-				<p>Nenhum post encontrado.</p>
-			</div>
-		);
-	}
-
+export default function PostsList({ posts }: PostsListProps) {
 	return (
 		<section className="flex gap-6">
-			{error && (
-				<div className="bg-red-100 mb-4 px-4 py-3 border border-red-400 rounded text-red-700">
-					<p>{error}</p>
-					<Button
-						onClick={loadPosts as unknown as () => void}
-						className="bg-red-500 hover:bg-red-600 mt-2 px-4 py-2 rounded text-white"
-					>
-						Tentar Novamente
-					</Button>
-				</div>
-			)}
-
 			<div className="bg-slate-300/50 dark:bg-slate-600/20 shadow-lg p-6 rounded-md w-full">
 				{posts.map((post: PostProps) => {
 					return (
@@ -146,7 +76,7 @@ export default function PostsMostRecent() {
 										</span>
 									</div>
 									<Link href={`/post/${post.id}`} className="flex items-end">
-										<div className="flex flex-row items-center gap-1">
+										<div className="flex items-center gap-1 hover:font-bold hover:dark:text-slate-100 hover:text-slate-900 transition-all">
 											<span>Leia mais</span>{" "}
 											<MdReadMore className="flex w-4 h-4" />
 										</div>

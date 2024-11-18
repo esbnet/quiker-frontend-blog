@@ -19,7 +19,7 @@ import { IoChevronBack } from "react-icons/io5";
 import z from "zod";
 
 const formSchema = z.object({
-	name: z.string().email("Email inválido"),
+	name: z.string().min(2).max(50),
 	email: z.string().email("Email inválido"),
 	password: z
 		.string()

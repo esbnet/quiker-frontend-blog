@@ -1,8 +1,5 @@
-"use client";
-
 import { Anton } from "next/font/google";
 import BreakNews from "./break-news";
-import PostsMostRecent from "./posts-most-recent";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
@@ -16,7 +13,7 @@ export default function Blog() {
 			<h2 className="font-bold text-3xl">Destaque do dia</h2>
 			<BreakNews />
 			<h2 className="font-bold text-3xl">Mais recentes</h2>
-			<PostsMostRecent />
+			{/* <PostsList /> */}
 		</section>
 	);
 }

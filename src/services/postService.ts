@@ -5,8 +5,8 @@ import { api } from "./api";
 
 export class PostService {
 	async getAllPosts(): Promise<PostProps[]> {
-		const response = await api.get<PostProps[]>("/posts");
-		return response.data;
+		const { data } = await api.get<PostProps[]>("/posts");
+		return data;
 	}
 
 	async getPostById(id: string): Promise<PostProps> {

@@ -1,25 +1,9 @@
-'use client';
+"use client";
+
 import { Button } from "@/components/ui/button";
+import type { Post } from "@/interfaces/post-date";
 import type { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
-
-type Author = {
-	id: string;
-	name: string;
-	email: string;
-	password: string;
-	createdAt: string;
-};
-
-export type Post = {
-	id: string;
-	title: string;
-	description: string;
-	imageUrl: string;
-	category: string;
-	createdAt: string;
-	author: Author;
-};
 
 export const columns: ColumnDef<Post>[] = [
 	{

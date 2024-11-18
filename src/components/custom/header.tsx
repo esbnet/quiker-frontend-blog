@@ -2,14 +2,15 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 
-import { motion } from "framer-motion";
+import { Anton } from "next/font/google";
 import Image from "next/image";
-import Link from "next/link";
+import { FaHome } from "react-icons/fa";
 import logo from "../../../public/img/logo.png";
 import menuItens from "../../data/menuItens";
 import { Button } from "../ui/button";
+
+const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
 export default function Header() {
 	const { push } = useRouter();
@@ -37,70 +38,46 @@ export default function Header() {
 
 	return (
 		<section className="top-0 z-50 sticky flex sm:flex-row flex-col justify-items-center sm:justify-between items-center border-slate-600/50 backdrop-blur-lg backdrop-brightness-90 mb-4 sm:border-b w-full sm:h-[10vh]">
-			<div className="shadow-xl m-1 border rounded-full">
+			<div className="shadow-xl m-4 border rounded-full overflow-hidden">
 				<Image
 					src={logo}
 					alt=""
 					width={80}
-					className="shadow-xl border rounded-full overflow-hidden"
 					priority
 					style={{ objectFit: "contain" }}
 				/>
 			</div>
+			<h1
+				className={`${titleMain.className} font-extrabold text-6xl text-slate-700 `}
+			>
+				Artigos...
+			</h1>
 
-			{/* <div className="sm:flex flex-1 items-center hidden px-4 w-full h-full">
-				<span className="font-bold text-4xl">{menuSelected.toUpperCase()}</span>
-			</div> */}
-
-			<div className="flex justify-end sm:pl-2 w-full sm:w-auto h-full">
-				<nav className="flex sm:flex-row flex-col justify-center items-center gap-4 p-4 w-full h-full sm:h-auto">
-					<ul className="sm:flex justify-center sm:justify-end items-center sm:gap-x-4 grid grid-cols-7 w-full">
-						{menuItens.map((menu) => {
-							return (
-								<motion.li whileHover={{ scale: 1.25 }} key={menu.href}>
-									<Link
-										href={menu.href}
-										className={`gap-1 flex items-center px-1 sm:justify-start justify-center hover:text-red-500 hover:font-bold ${activeLink(
-											menu.href,
-										)}`}
-									>
-										<span className="sm:hidden">{menu.icon}</span>
-										{/* {menu.name} */}
-										<p className="sm:flex hidden">{menu.name.toUpperCase()}</p>
-									</Link>
-								</motion.li>
-							);
-						})}
-					</ul>
-					<div className="flex justify-between sm:justify-end gap-2 sm:hidden w-full sm:w-auto">
-						<Button
-							variant={"outline"}
-							onClick={linkPreview}
-							onKeyDown={linkPreview}
-							className="flex justify-center items-center hover:bg-red-600 rounded w-8 h-6 transition-colors hover:cursor-pointer"
-						>
-							<MdArrowBackIosNew />
-						</Button>
-						<Button
-							variant={"outline"}
-							onClick={linkForward}
-							onKeyDown={linkForward}
-							className="flex justify-center items-center hover:bg-red-600 rounded w-8 h-6 transition-colors hover:cursor-pointer"
-						>
-							<MdArrowForwardIos />
-						</Button>
-					</div>
-				</nav>
-				<div className="flex justify-between">
-					<Button
-						variant={"default"}
-						onClick={() => push("/")}
-						onKeyDown={() => push("/")}
-						className="flex justify-center items-center hover:bg-red-600 rounded w-8 h-6 transition-colors hover:cursor-pointer"
-					>
-						Entrar
-					</Button>
-				</div>
+			<div className="flex flex-row flex-1 justify-center sm:justify-end items-center gap-4 pr-4 sm:pl-2 w-full sm:w-auto h-full">
+				<Button
+					variant={"outline"}
+					onClick={() => push("/")}
+					onKeyDown={() => push("/")}
+					className="hover:bg-slate-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+				>
+					<FaHome size={20} />
+				</Button>
+				<Button
+					variant={"outline"}
+					onClick={() => push("/sign-in")}
+					onKeyDown={() => push("/sign-in")}
+					className="hover:bg-slate-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+				>
+					Entrar
+				</Button>
+				<Button
+					variant={"link"}
+					onClick={() => push("/sign-up")}
+					onKeyDown={() => push("/sign-up")}
+					className="hover:font-bold dark:hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 rounded-full"
+				>
+					Registra-se
+				</Button>
 			</div>
 		</section>
 	);

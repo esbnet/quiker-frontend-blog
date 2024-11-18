@@ -38,7 +38,7 @@ export default function BreakNews() {
 					</p>
 				</div>
 				<Link href={"/post/"} className="flex justify-end">
-					<div className="flex items-center gap-1">
+					<div className="flex items-center gap-1 hover:font-bold hover:dark:text-slate-100 hover:text-slate-900 transition-all">
 						<span>Leia mais</span> <MdReadMore className="flex w-4 h-4" />
 					</div>
 				</Link>

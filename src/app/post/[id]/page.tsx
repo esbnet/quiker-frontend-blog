@@ -9,7 +9,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import useControllers from "@/hooks/useControllers";
 import { Anton } from "next/font/google";
 import Image from "next/image";
-import { useParams } from "next/navigation";
 import { FaRegEye } from "react-icons/fa";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
@@ -21,7 +20,6 @@ export default function Article({ params }: { params: { id: string } }) {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
-	const Params = useParams();
 	const id = params.id;
 
 	useEffect(() => {
@@ -72,13 +70,15 @@ export default function Article({ params }: { params: { id: string } }) {
 			<h1 className={`${titleMain.className} font-extrabold text-6xl`}>
 				{post.title}
 			</h1>
-			<Image
-				src={post.imageUrl}
-				alt=""
-				width={500}
-				height={200}
-				className="rounded-md h-72 transform transition-transform duration-300 object-cover hover:scale-105"
-			/>
+			<div className="flex sm:flex flex-col gap-2 rounded-md overflow-hidden">
+				<Image
+					src={post.imageUrl}
+					alt=""
+					width={500}
+					height={200}
+					className="rounded-md h-72 transform transition-transform duration-300 object-cover hover:scale-105"
+				/>
+			</div>
 			<div className="flex gap-6 text-slate-400 dark:text-slate-800">
 				<span className="flex items-center gap-2">
 					<FaRegEye className="w-4 h-4" />

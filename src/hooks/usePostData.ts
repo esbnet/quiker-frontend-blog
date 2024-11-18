@@ -1,17 +1,23 @@
 import useControllers from "@/hooks/useControllers";
 import { useQuery } from "@tanstack/react-query";
 
-const loadData = async () => {
+const getPosts = async () => {
 	const { postController } = useControllers();
 	const response = await postController.getAllPosts();
-	return response.map((post) => post);
+	return response;
 };
 
 export function usePostData() {
 	const query = useQuery({
 		queryKey: ["posts-data"],
-		queryFn: loadData,
+		queryFn: getPosts,
 	});
 
-	return query;
+	return {
+		...query,
+		posts: query.data,
+		isLoading: query.isLoading,
+		isError: query.isError,
+		error: query.error,
+	};
 }
