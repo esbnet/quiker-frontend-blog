@@ -1,7 +1,7 @@
-import type { AuthorProps, PostProps } from "@/app/types/types";
+import type { AuthorProps, PostProps } from "@/types/types";
 
-import { AuthorController } from "@/app/controller/posts/author-controller";
-import { PostController } from "@/app/controller/posts/post-controller";
+import { AuthorController } from "@/controller/posts/author-controller";
+import { PostController } from "@/controller/posts/post-controller";
 
 // hooks/useControllers.ts
 const useControllers = () => {

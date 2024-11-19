@@ -1,7 +1,7 @@
 import Footer from "@/components/custom/footer";
 import Header from "@/components/custom/header";
 
-export default function PortLayout({
+export default function HomeLayout({
 	children,
 }: {
 	children: React.ReactNode;

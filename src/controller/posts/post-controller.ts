@@ -54,7 +54,10 @@ export class PostController {
 
 	async getAllPosts(): Promise<PostProps[]> {
 		try {
-			return await this.postService.getAllPosts();
+			const posts = await this.postService.getAllPosts();
+			console.log("NO CONTROLLER RECECENDO DE SERVICE ===> ", posts);
+
+			return posts;
 		} catch (error) {
 			console.error("Error fetching posts:", error);
 			throw new Error("Failed to fetch posts");

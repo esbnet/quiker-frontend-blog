@@ -1,6 +1,6 @@
 "use client";
 
-export default function PortLayout({
+export default function SignUpLayout({
 	children,
 }: {
 	children: React.ReactNode;

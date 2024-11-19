@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 
-import type { PostProps } from "@/app/types/types";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useUser } from "@/context/AuthContext";
 import useControllers from "@/hooks/useControllers";
+import type { PostProps } from "@/types/types";
 import { Anton } from "next/font/google";
 import Image from "next/image";
 import { FaRegEye } from "react-icons/fa";
@@ -19,6 +20,8 @@ export default function Article({ params }: { params: { id: string } }) {
 
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+
+	const { user } = useUser();
 
 	const id = params.id;
 
@@ -94,14 +97,31 @@ export default function Article({ params }: { params: { id: string } }) {
 				</span>
 			</div>
 			<p>{post.description}</p>
-			<div className="flex gap-4 self-end">
-				<Button variant={"ghost"} className="flex items-center gap-2">
-					<BiLike className="w-6 h-6" />
-				</Button>
-				<Button variant={"ghost"} className="flex items-center gap-2">
-					<BiDislike className="w-6 h-6" />
-				</Button>
-			</div>
+
+			{user !== null ? (
+				<div className="flex self-end">
+					<Button
+						variant={"ghost"}
+						className="flex items-center hover:text-indigo-600"
+					>
+						<BiLike className="w-6 h-6" />
+					</Button>
+					<Button
+						variant={"ghost"}
+						className="flex items-center hover:text-indigo-600"
+					>
+						<BiDislike className="w-6 h-6" />
+					</Button>
+					<Button
+						variant={"ghost"}
+						className="flex items-center hover:text-indigo-600"
+					>
+						Comentar
+					</Button>
+				</div>
+			) : (
+				<></>
+			)}
 		</section>
 	);
 }

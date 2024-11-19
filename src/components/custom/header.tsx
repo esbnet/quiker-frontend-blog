@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { useUser } from "@/context/AuthContext";
 import { Anton } from "next/font/google";
 import Image from "next/image";
 import { FaHome } from "react-icons/fa";
@@ -13,6 +14,8 @@ import { Button } from "../ui/button";
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
 export default function Header() {
+	const { logout, user } = useUser();
+
 	const { push } = useRouter();
 	const asPath = usePathname();
 	const [menuSelected, setMenuSelected] = useState("quem sou");
@@ -55,29 +58,46 @@ export default function Header() {
 
 			<div className="flex flex-row flex-1 justify-center sm:justify-end items-center gap-4 pr-4 sm:pl-2 w-full sm:w-auto h-full">
 				<Button
+					title="Voltar a página inicial"
 					variant={"outline"}
 					onClick={() => push("/")}
 					onKeyDown={() => push("/")}
-					className="hover:bg-slate-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+					className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
 				>
 					<FaHome size={20} />
 				</Button>
-				<Button
-					variant={"outline"}
-					onClick={() => push("/sign-in")}
-					onKeyDown={() => push("/sign-in")}
-					className="hover:bg-slate-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
-				>
-					Entrar
-				</Button>
-				<Button
-					variant={"link"}
-					onClick={() => push("/sign-up")}
-					onKeyDown={() => push("/sign-up")}
-					className="hover:font-bold dark:hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 rounded-full"
-				>
-					Registra-se
-				</Button>
+				{user === null ? (
+					<>
+						<Button
+							title="Entre e contribuia com suas postagens"
+							variant={"outline"}
+							onClick={() => push("/sign-in")}
+							onKeyDown={() => push("/sign-in")}
+							className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+						>
+							Entrar
+						</Button>
+						<Button
+							title="Registre-se e contribua com suas postagens"
+							variant={"link"}
+							onClick={() => push("/sign-up")}
+							onKeyDown={() => push("/sign-up")}
+							className="hover:font-bold dark:hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 rounded-full"
+						>
+							Registra-se
+						</Button>
+					</>
+				) : (
+					<Button
+						title="Registre-se e contribua com suas postagens"
+						variant={"link"}
+						onClick={() => logout()}
+						onKeyDown={() => logout()}
+						className="hover:font-bold dark:hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 rounded-full"
+					>
+						Sair
+					</Button>
+				)}
 			</div>
 		</section>
 	);

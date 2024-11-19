@@ -1,6 +1,9 @@
+import { BiDislike, BiLike } from "react-icons/bi";
+
 import { Anton } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { FaRegEye } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
@@ -37,11 +40,34 @@ export default function BreakNews() {
 						laboriosam qui sapiente nesciunt aut dolores quam.
 					</p>
 				</div>
-				<Link href={"/post/"} className="flex justify-end">
-					<div className="flex items-center gap-1 hover:font-bold hover:dark:text-slate-100 hover:text-slate-900 transition-all">
-						<span>Leia mais</span> <MdReadMore className="flex w-4 h-4" />
+				<div className="flex flex-row justify-between">
+					<div className="justify-between gap-2">
+						<div className="flex flex-row gap-2 text-slate-600">
+							<span className="flex items-center gap-2">
+								<FaRegEye className="w-4 h-4" />
+								<span className="text-xs">{25}</span>
+							</span>
+							<span className="flex items-center gap-2">
+								<BiLike className="w-4 h-4" />
+								<span className="text-xs">{7}</span>
+							</span>
+
+							<span className="flex items-center gap-2">
+								<BiDislike className="w-4 h-4" />
+								<span className="text-xs">{4}</span>
+							</span>
+						</div>
 					</div>
-				</Link>
+
+					<Link
+						href={"/post/4909cc24-52d6-40ee-a0b4-51307a278702"}
+						className="flex justify-end"
+					>
+						<div className="flex items-center gap-1 hover:font-bold hover:dark:text-slate-100 hover:text-slate-900 transition-all">
+							<span>Leia mais</span> <MdReadMore className="flex w-4 h-4" />
+						</div>
+					</Link>
+				</div>
 			</div>
 		</section>
 	);

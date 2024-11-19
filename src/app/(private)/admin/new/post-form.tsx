@@ -123,7 +123,7 @@ export default function PostForm() {
 
 				<Separator className="my-4" />
 				<Button
-					className="bg-gradient-to-r from-10% from-orange-600 to-90% to-red-800 shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+					className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
 					type="submit"
 					title="Acessar área administrativa"
 				>

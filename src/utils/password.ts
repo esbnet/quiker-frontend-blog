@@ -1,4 +1,4 @@
-import * as crypto from "crypto";
+import * as crypto from "node:crypto";
 
 export const saltAndHashPassword = (password: string) => {
 	const salt = crypto.randomBytes(16).toString("hex");

@@ -2,7 +2,7 @@
 
 import { Anton } from "next/font/google";
 
-import type { PostProps } from "@/app/types/types";
+import type { PostProps } from "@/types/types";
 import Image, { type StaticImageData } from "next/image";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa";
@@ -11,14 +11,27 @@ import { MdReadMore } from "react-icons/md";
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR as locale } from "date-fns/locale";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getPosts } from "./get-posts";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
-interface PostsListProps {
-	posts: PostProps[];
-}
+export default function PostsPage() {
+	const [posts, setPosts] = useState<PostProps[]>([]);
 
-export default function PostsList({ posts }: PostsListProps) {
+	useEffect(() => {
+		const fetchPosts = async () => {
+			try {
+				const data = await getPosts();
+				setPosts(data);
+			} catch (error) {
+				console.error("Error fetching posts:", error);
+			}
+		};
+
+		fetchPosts();
+	}, []);
+
 	return (
 		<section className="flex gap-6">
 			<div className="bg-slate-300/50 dark:bg-slate-600/20 shadow-lg p-6 rounded-md w-full">
