@@ -1,7 +1,6 @@
 // services/postService.ts
-
-import type { PostProps } from "@/app/types/types";
-import { api } from "./api";
+import type { PostProps } from "@/types/types";
+import { api } from "../lib/api";
 
 export class PostService {
 	async getAllPosts(): Promise<PostProps[]> {
@@ -10,7 +9,7 @@ export class PostService {
 	}
 
 	async getPostById(id: string): Promise<PostProps> {
-		await api.post<PostProps>(`/post/view/${id}`);
+		await api.post<PostProps>(`/post/${id}`);
 		const response = await api.post<PostProps>(`/post/${id}`);
 		return response.data;
 	}

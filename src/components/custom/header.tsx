@@ -2,16 +2,22 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
 
-import { motion } from "framer-motion";
+import { useUser } from "@/context/AuthContext";
+import { Anton } from "next/font/google";
 import Image from "next/image";
-import Link from "next/link";
+import { FaHome } from "react-icons/fa";
+import { GiExitDoor } from "react-icons/gi";
 import logo from "../../../public/img/logo.png";
 import menuItens from "../../data/menuItens";
 import { Button } from "../ui/button";
+import { Profile } from "./profile-component";
+
+const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
 export default function Header() {
+	const { logout, user } = useUser();
+
 	const { push } = useRouter();
 	const asPath = usePathname();
 	const [menuSelected, setMenuSelected] = useState("quem sou");
@@ -21,86 +27,86 @@ export default function Header() {
 		return setMenuSelected(selectedMenu?.name || "quem sou");
 	}, [asPath]);
 
-	function activeLink(path: string) {
-		return asPath === `${path}` ? "border-b-4 border-b-red-600 font-bold" : "";
-	}
-
-	function linkPreview() {
-		const menuIndex = menuItens.findIndex((menu) => menuSelected === menu.name);
-		if (menuIndex > 0) push(menuItens[menuIndex - 1].href);
-	}
-
-	function linkForward() {
-		const menuIndex = menuItens.findIndex((menu) => menuSelected === menu.name);
-		if (menuIndex < menuItens.length - 1) push(menuItens[menuIndex + 1].href);
-	}
-
 	return (
 		<section className="top-0 z-50 sticky flex sm:flex-row flex-col justify-items-center sm:justify-between items-center border-slate-600/50 backdrop-blur-lg backdrop-brightness-90 mb-4 sm:border-b w-full sm:h-[10vh]">
-			<div className="shadow-xl m-1 border rounded-full">
-				<Image
-					src={logo}
-					alt=""
-					width={80}
-					className="shadow-xl border rounded-full overflow-hidden"
-					priority
-					style={{ objectFit: "contain" }}
-				/>
+			<div className="flex flex-row items-center gap-4 p-4">
+				<div className="shadow-xl m-4 border rounded-full overflow-hidden">
+					<Image
+						src={logo}
+						alt=""
+						width={80}
+						priority
+						style={{ objectFit: "contain" }}
+					/>
+				</div>
+				<div className="flex flex-col">
+					<h1
+						className={`${titleMain.className} font-extrabold text-4xl  text-slate-700 `}
+					>
+						Quiker Artigos...
+					</h1>
+					<h1>a tecnologia em evidência</h1>
+				</div>
 			</div>
 
-			{/* <div className="sm:flex flex-1 items-center hidden px-4 w-full h-full">
-				<span className="font-bold text-4xl">{menuSelected.toUpperCase()}</span>
-			</div> */}
+			<div className="flex flex-row flex-1 justify-center items-center gap-4 p-4">
+				<Button
+					title="Voltar a página inicial"
+					variant={"outline"}
+					onClick={() => push("/")}
+					onKeyDown={() => push("/")}
+					className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+				>
+					<FaHome size={20} />
+				</Button>
+				<Button
+					title="Voltar a página inicial"
+					variant={"outline"}
+					onClick={() => push("/")}
+					onKeyDown={() => push("/")}
+					className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+				>
+					Doc
+				</Button>
+			</div>
 
-			<div className="flex justify-end sm:pl-2 w-full sm:w-auto h-full">
-				<nav className="flex sm:flex-row flex-col justify-center items-center gap-4 p-4 w-full h-full sm:h-auto">
-					<ul className="sm:flex justify-center sm:justify-end items-center sm:gap-x-4 grid grid-cols-7 w-full">
-						{menuItens.map((menu) => {
-							return (
-								<motion.li whileHover={{ scale: 1.25 }} key={menu.href}>
-									<Link
-										href={menu.href}
-										className={`gap-1 flex items-center px-1 sm:justify-start justify-center hover:text-red-500 hover:font-bold ${activeLink(
-											menu.href,
-										)}`}
-									>
-										<span className="sm:hidden">{menu.icon}</span>
-										{/* {menu.name} */}
-										<p className="sm:flex hidden">{menu.name.toUpperCase()}</p>
-									</Link>
-								</motion.li>
-							);
-						})}
-					</ul>
-					<div className="flex justify-between sm:justify-end gap-2 sm:hidden w-full sm:w-auto">
+			<div className="flex flex-row justify-center sm:justify-end items-center sm:pl-2 w-full sm:w-auto h-full">
+				{user === null ? (
+					<>
 						<Button
-							variant={"outline"}
-							onClick={linkPreview}
-							onKeyDown={linkPreview}
-							className="flex justify-center items-center hover:bg-red-600 rounded w-8 h-6 transition-colors hover:cursor-pointer"
+							title="Entre e contribuia com suas postagens"
+							variant={"link"}
+							onClick={() => push("/sign-in")}
+							onKeyDown={() => push("/sign-in")}
+							className="hover:font-bold dark:hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 rounded-full"
 						>
-							<MdArrowBackIosNew />
+							Entrar
 						</Button>
 						<Button
-							variant={"outline"}
-							onClick={linkForward}
-							onKeyDown={linkForward}
-							className="flex justify-center items-center hover:bg-red-600 rounded w-8 h-6 transition-colors hover:cursor-pointer"
+							title="Registre-se e contribua com suas postagens"
+							variant={"link"}
+							onClick={() => push("/sign-up")}
+							onKeyDown={() => push("/sign-up")}
+							className="hover:font-bold dark:hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 rounded-full"
 						>
-							<MdArrowForwardIos />
+							Registra-se
 						</Button>
-					</div>
-				</nav>
-				<div className="flex justify-between">
-					<Button
-						variant={"default"}
-						onClick={() => push("/")}
-						onKeyDown={() => push("/")}
-						className="flex justify-center items-center hover:bg-red-600 rounded w-8 h-6 transition-colors hover:cursor-pointer"
-					>
-						Entrar
-					</Button>
-				</div>
+					</>
+				) : (
+					<>
+						<Profile />
+						<Button
+							title="Encerrar sessão"
+							variant={"ghost"}
+							onClick={() => logout()}
+							onKeyDown={() => logout()}
+							className="hover:font-bold dark:hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 rounded-full"
+						>
+							Sair
+							<GiExitDoor size={20} />
+						</Button>
+					</>
+				)}
 			</div>
 		</section>
 	);
