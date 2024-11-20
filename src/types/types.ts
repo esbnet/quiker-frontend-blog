@@ -18,4 +18,14 @@ export type PostProps = {
 	likes: number;
 	dislikes: number;
 	author: AuthorProps;
+	comments: CommentProps[];
+};
+
+export type CommentProps = {
+	id: string;
+	user: AuthorProps;
+	postId: PostProps;
+	description: string;
+	createdAt: string;
+	removed: boolean;
 };

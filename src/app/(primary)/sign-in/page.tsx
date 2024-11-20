@@ -7,14 +7,14 @@ import {
 	FormItem,
 	FormMessage,
 } from "@/components/ui/form";
+import { redirect, useRouter } from "next/navigation";
 import { FaHome, FaUser } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@/context/AuthContext";
-import { api } from "@/services/api";
+import { api } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ImSpinner9 } from "react-icons/im";
@@ -23,11 +23,11 @@ import z from "zod";
 
 export default function SignIn() {
 	const [isSubmit, setIsSubmit] = useState(false);
-
 	const { setUser, user } = useUser();
+	const router = useRouter();
 
 	if (user) {
-		redirect("/");
+		router.push("/");
 	}
 
 	const formSchema = z.object({
@@ -60,27 +60,24 @@ export default function SignIn() {
 				password,
 			});
 
-			const { token, user } = response.data;
+			const { user } = response.data;
 
-			alert(user.name);
-
-			localStorage.setItem("token", token);
 			setUser(user);
 
-			toast.success("Usuário logado com sucesso", {
+			toast.success("Que bom te ver de novo!", {
+				description: `Somos gratos por sua contribuição ${user.name}. 😃`,
 				duration: 5000,
 				position: "top-right",
 				icon: <FaUser />,
 
 				style: {
-					backgroundColor: "#149F14",
+					backgroundColor: "#119A11CE",
 					color: "white",
 					fontWeight: "bold",
 				},
 			});
 
 			setIsSubmit(false);
-			return redirect("/");
 		} catch (error) {
 			toast.warning("Autenticação", {
 				description: "Verifique suas credenciais e tente novamente",

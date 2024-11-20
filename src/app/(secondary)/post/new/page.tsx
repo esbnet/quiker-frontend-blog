@@ -1,6 +1,6 @@
 "use client";
 
-import PostForm from "@/app/(private)/admin/new/post-form";
+import PostForm from "@/app/(secondary)/admin/new/post-form";
 import { useUser } from "@/context/AuthContext";
 import { redirect } from "next/navigation";
 

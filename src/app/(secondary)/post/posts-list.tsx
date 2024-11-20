@@ -1,4 +1,5 @@
 "use client";
+// post/posts-list.tsx
 
 import { Anton } from "next/font/google";
 
@@ -16,21 +17,48 @@ import { getPosts } from "./get-posts";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
-export default function PostsPage() {
-	const [posts, setPosts] = useState<PostProps[]>([]);
+interface PostListProps {
+	initialPosts: PostProps[];
+}
+
+export function PostsList({ initialPosts }: PostListProps) {
+	const [posts, setPosts] = useState<PostProps[]>(initialPosts);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		const fetchPosts = async () => {
-			try {
-				const data = await getPosts();
-				setPosts(data);
-			} catch (error) {
-				console.error("Error fetching posts:", error);
-			}
-		};
+		fetchPosts(); // Primeira chamada
 
-		fetchPosts();
+		// Recarrega quando a página voltar a ficar visível
+		document.addEventListener("visibilitychange", () => {
+			if (document.visibilityState === "visible") {
+				fetchPosts();
+			}
+		});
+
+		// Atualiza a cada 60 segundos
+		const interval = setInterval(fetchPosts, 60000);
+
+		// Cleanup: remove o intervalo quando o componente desmonta
+		return () => clearInterval(interval);
 	}, []);
+
+	const fetchPosts = async () => {
+		try {
+			setIsLoading(true);
+			setError(null);
+			const newPosts = await getPosts();
+			setPosts(newPosts);
+		} catch (err) {
+			setError("Erro ao carregar posts");
+			console.error(err);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
+	if (isLoading) return <div>Carregando...</div>;
+	if (error) return <div className="text-red-500">{error}</div>;
 
 	return (
 		<section className="flex gap-6">
@@ -90,7 +118,8 @@ export default function PostsPage() {
 									</div>
 									<Link href={`/post/${post.id}`} className="flex items-end">
 										<div className="flex items-center gap-1 hover:font-bold hover:dark:text-slate-100 hover:text-slate-900 transition-all">
-											<span>Leia mais</span>{" "}
+											<span>Leia mais </span>
+											{post.id}
 											<MdReadMore className="flex w-4 h-4" />
 										</div>
 									</Link>

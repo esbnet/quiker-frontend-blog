@@ -1,18 +1,15 @@
 // services/postService.ts
-
 import type { PostProps } from "@/types/types";
-import { api } from "./api";
+import { api } from "../lib/api";
 
 export class PostService {
 	async getAllPosts(): Promise<PostProps[]> {
 		const response = await api.get<PostProps[]>("/posts");
-		console.log("NO SERVICE RECECENDO DADOS DO AXIOS ===> ", response.data);
-
 		return response.data;
 	}
 
 	async getPostById(id: string): Promise<PostProps> {
-		await api.post<PostProps>(`/post/view/${id}`);
+		await api.post<PostProps>(`/post/${id}`);
 		const response = await api.post<PostProps>(`/post/${id}`);
 		return response.data;
 	}
