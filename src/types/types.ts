@@ -40,3 +40,11 @@ export type CommentProps = {
 	createdAt: string;
 	removed: boolean;
 };
+
+export type UserUpdateProps = {
+	id: string;
+	title: string;
+	description: string;
+	imageUrl: string;
+	userId: string;
+};
