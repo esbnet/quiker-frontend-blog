@@ -5,7 +5,7 @@ interface PostPageProps {
 	params: { id: string };
 }
 export default async function PostPage({ params }: PostPageProps) {
-	const { id } = params;
+	const { id } = await params;
 
 	try {
 		const initialPost = await getPost(id);

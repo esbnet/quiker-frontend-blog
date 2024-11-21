@@ -1,4 +1,4 @@
-import PostForm from "../new/post-form";
+import PostForm from "../../post/new/post-form";
 
 export default function NewPost() {
 	return (
