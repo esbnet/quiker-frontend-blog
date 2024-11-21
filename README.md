@@ -10,10 +10,11 @@ Para utilizá-lo, basta registrar-se no aplicativo e já será hapto a realizar 
 
 - React - 18.3 - Linguagem de programação
 - Next - 15.0 - Framework para melhor desempenho, CEO
-- Typescript - 4.5
-- Prisma 
-- Axios - 1.7
-- Tailwind Css - 3.3
+- Typescript - 4.5 - Typagem, Segurança e Produtividade
+- Prisma - ORM que otimiza o processo de criação do DB e manipulação de dados
+- Axios - 1.7 - Gerenciar requisiçõe HTTP 
+- Tailwind Css - 3.3 - Framework de estilo CSS poderoso, flexível e rápido
+- Jest - Framework para testes unitários
 
 ## Pré-requisitos
 
@@ -51,4 +52,24 @@ npm run dev
 
 Após realizar todos os procedimentos, aparecerá a página inicial:
 
-![Logo da Minha Empresa](https://exemplo.com/logo.png)
+Para realizar comentários é necessário se registrar e fazer login no site.
+
+<p float="left">
+ <img src="https://github.com/esbnet/quiker-frontend-blog/blob/main/src/assets/doc/inicial.jpeg?raw=true" width="700" />
+</p>
+
+## Registro
+<p float="left">
+ <img src="https://github.com/esbnet/quiker-frontend-blog/blob/main/src/assets/doc/registro.jpeg?raw=true" width="700" />
+</p>
+
+## Entrar
+<p float="left">
+ <img src="https://github.com/esbnet/quiker-frontend-blog/blob/main/src/assets/doc/login.jpeg?raw=true" width="700" />
+</p>
+
+## Tela de um Post
+<p float="left">
+ <img src="https://github.com/esbnet/quiker-frontend-blog/blob/main/src/assets/doc/post.jpeg?raw=true" width="700" />
+</p>
+
