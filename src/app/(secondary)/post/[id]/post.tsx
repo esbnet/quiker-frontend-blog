@@ -141,7 +141,7 @@ export function Post({ initialPost }: PostListProps) {
 							<Button
 								title="Editar post"
 								variant={"ghost"}
-								onClick={() => router.push("/post/update")}
+								onClick={() => router.push(`/post/${post.id}/edit`)}
 								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
 							>
 								<MdEditNote size={32} />
@@ -149,7 +149,7 @@ export function Post({ initialPost }: PostListProps) {
 							<Button
 								title="Excluir post"
 								variant={"ghost"}
-								onClick={() => router.push("/post/update")}
+								onClick={() => router.push(`/post/${post.id}/edit`)}
 								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
 							>
 								<FaTrash size={24} />

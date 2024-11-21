@@ -27,7 +27,7 @@ export default function PostsPageClient({
 						<Button
 							title="Novo post"
 							variant={"ghost"}
-							onClick={() => router.push("/post/new")}
+							onClick={() => router.push("/post/0/new")}
 							className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
 						>
 							<FaPlus size={24} />

@@ -12,18 +12,11 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { useUser } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+import type { PostProps, UserUpdateProps } from "@/types/types";
+import { redirect, useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
-import { addPost } from "./post-add";
-
-type apiURL = string | undefined;
-let apiURL: apiURL;
-
-if (process.env.NODE_ENV === "production") {
-	apiURL = process.env.API_PROD;
-} else {
-	apiURL = process.env.API_DEV;
-}
+import { MdCancel } from "react-icons/md";
+import { updatePost } from "./post-update";
 
 const schema = z.object({
 	title: z
@@ -44,11 +37,19 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function PostForm() {
+interface PostListProps {
+	initialPost: PostProps;
+}
+
+export function EditPostForm({ initialPost }: PostListProps) {
 	const { user } = useUser();
-	const authorId = user?.id;
+
+	if (user === null) {
+		return redirect("/sign-in");
+	}
 
 	const route = useRouter();
+
 	const {
 		control,
 		register,
@@ -59,31 +60,42 @@ export default function PostForm() {
 		mode: "all",
 		reValidateMode: "onChange",
 		resolver: zodResolver(schema),
+		defaultValues: {
+			title: initialPost?.title || "",
+			description: initialPost?.description || "",
+			imageUrl: initialPost?.imageUrl || "",
+		},
 	});
 
-	const handleAddPost: SubmitHandler<FormData> = async (data) => {
-		const post = {
-			authorId: authorId as string,
-			...data,
-		};
+	const handleEditPost: SubmitHandler<FormData> = async (data) => {
+		const postData = {
+			id: initialPost.id,
+			title: data.title,
+			description: data.description,
+			imageUrl: data.imageUrl,
+			userId: user.id,
+		} as UserUpdateProps;
 
 		try {
-			await addPost(post);
+			await updatePost(postData);
 
-			toast.success("Post criado com sucesso");
+			toast.success("Post atualizado com sucesso", {
+				duration: 5000,
+				style: {
+					background: "#333",
+					color: "#fff",
+				},
+			});
 		} catch (error) {
-			toast.error(`Erro ao criar o Post: ${error}`);
+			toast.error(`Erro ao atualizar o Post: ${error}`);
 		}
-
-		reset();
-
-		route.push("/sign-in");
+		route.back();
 	};
 
 	return (
 		<div className="flex justify-center m-auto w-full h-[72vh]">
 			<form
-				onSubmit={handleSubmit(handleAddPost)}
+				onSubmit={handleSubmit(handleEditPost)}
 				className="flex flex-col gap-4 w-full"
 			>
 				<label htmlFor="title">Título</label>
@@ -123,14 +135,23 @@ export default function PostForm() {
 				)}
 
 				<Separator className="my-4" />
-				<Button
-					className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
-					type="submit"
-					title="Acessar área administrativa"
-				>
-					<BiNews className="mr-2" />
-					Publicar
-				</Button>
+				<div className="flex gap-2">
+					<Button
+						className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+						title="Acessar área administrativa"
+					>
+						<BiNews className="mr-2" />
+						Salvar
+					</Button>
+					<Button
+						className="flex-1 bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+						onClick={() => route.back()}
+						title="Cancela alterações e retorna ao post"
+					>
+						<MdCancel className="mr-2" />
+						Cancelar
+					</Button>
+				</div>
 			</form>
 		</div>
 	);
