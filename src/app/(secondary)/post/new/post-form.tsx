@@ -11,8 +11,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { redirect, useRouter } from "next/navigation";
+import { useUser } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
+import { addPost } from "./post-add";
 
 type apiURL = string | undefined;
 let apiURL: apiURL;
@@ -38,13 +40,14 @@ const schema = z.object({
 		.string()
 		.url({ message: "Caminha da imagem inválido" })
 		.min(1, { message: "O campo é obrigatório" }),
-	category: z.string().min(1, { message: "Selecione uma categoria" }),
-	createAt: z.date().default(new Date()),
 });
 
 type FormData = z.infer<typeof schema>;
 
 export default function PostForm() {
+	const { user } = useUser();
+	const authorId = user?.id;
+
 	const route = useRouter();
 	const {
 		control,
@@ -58,15 +61,14 @@ export default function PostForm() {
 		resolver: zodResolver(schema),
 	});
 
-	const onSubmit: SubmitHandler<FormData> = (data) => {
+	const handleAddPost: SubmitHandler<FormData> = async (data) => {
+		const post = {
+			authorId: authorId as string,
+			...data,
+		};
+
 		try {
-			const response = fetch("/api/post/new", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			});
+			await addPost(post);
 
 			toast.success("Post criado com sucesso");
 		} catch (error) {
@@ -75,13 +77,13 @@ export default function PostForm() {
 
 		reset();
 
-		redirect("/login");
+		route.push("/sign-in");
 	};
 
 	return (
 		<div className="flex justify-center m-auto w-full h-[72vh]">
 			<form
-				onSubmit={handleSubmit(onSubmit)}
+				onSubmit={handleSubmit(handleAddPost)}
 				className="flex flex-col gap-4 w-full"
 			>
 				<label htmlFor="title">Título</label>

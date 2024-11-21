@@ -9,16 +9,27 @@ export type AuthorProps = {
 
 export type PostProps = {
 	id: string;
+	author: AuthorProps;
 	title: string;
 	description: string;
 	imageUrl: string;
-	category: string;
+	views?: number;
+	likes?: number;
+	dislikes?: number;
 	createdAt: string;
-	views: number;
-	likes: number;
-	dislikes: number;
-	author: AuthorProps;
-	comments: CommentProps[];
+	comments?: CommentProps[];
+};
+
+export type PostNewProps = {
+	id?: string;
+	authorId: string;
+	title: string;
+	description: string;
+	imageUrl: string;
+	views?: number;
+	likes?: number;
+	dislikes?: number;
+	comments?: CommentProps[];
 };
 
 export type CommentProps = {

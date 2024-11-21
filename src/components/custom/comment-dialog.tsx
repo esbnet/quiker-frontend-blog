@@ -7,7 +7,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { saveComment } from "@/app/(secondary)/post/[id]/save-post";
+import { saveComment } from "@/app/(secondary)/post/[id]/comment-save";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { MdSend } from "react-icons/md";

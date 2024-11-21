@@ -5,6 +5,7 @@ import type { CommentProps, PostProps } from "@/types/types";
 import { format, formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
+import { FaRegEye, FaTrash } from "react-icons/fa";
 
 import { CommentComponent } from "@/components/custom/comment-component";
 import { Button } from "@/components/ui/button";
@@ -12,9 +13,10 @@ import { useUser } from "@/context/AuthContext";
 import { ptBR as locale } from "date-fns/locale";
 import { Anton } from "next/font/google";
 import Image from "next/image";
-import { FaRegEye } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { MdEditNote } from "react-icons/md";
 import { CommentsList } from "./comments-list";
-import { getComments } from "./get-commets";
+import { getComments } from "./commets-get";
 import { getPost } from "./get-post";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
@@ -30,11 +32,11 @@ export function Post({ initialPost }: PostListProps) {
 	const [error, setError] = useState<string | null>(null);
 
 	const { user } = useUser();
+	const router = useRouter();
 
 	useEffect(() => {
 		fetchPost(); // Primeira chamada
 
-		// Recarrega quando a página voltar a ficar visível
 		document.addEventListener("visibilitychange", () => {
 			if (document.visibilityState === "visible") {
 				fetchPost();
@@ -96,38 +98,68 @@ export function Post({ initialPost }: PostListProps) {
 
 	return (
 		<section className="flex flex-col gap-6 text-slate-600 dark:text-slate-300">
-			<div className="flex justify-center">{/* <CarouselPlugin /> */}</div>
-			<h1 className={`${titleMain.className} font-extrabold text-6xl`}>
+			<h1 className={`${titleMain.className} font-extrabold text-5xl`}>
 				{post.title}
 			</h1>
-			<div className="flex sm:flex flex-col gap-2 rounded-md overflow-hidden">
-				<Image
-					src={post.imageUrl}
-					alt=""
-					width={500}
-					height={200}
-					className="rounded-md h-72 transform transition-transform duration-300 object-cover hover:scale-105"
-				/>
+
+			<div className="flex gap-4">
+				<div className="flex flex-col gap-2">
+					<div className="flex sm:flex flex-col gap-2 rounded-md overflow-hidden">
+						<Image
+							src={post.imageUrl}
+							alt=""
+							width={500}
+							height={200}
+							className="rounded-md h-72 transform transition-transform duration-300 object-cover hover:scale-105"
+						/>
+					</div>
+					<div className="flex gap-6 text-slate-400 dark:text-slate-800">
+						<span className="flex items-center gap-2">
+							<FaRegEye className="w-4 h-4" />
+							<span className="text-slate-500 text-xs">{post.views}</span>
+						</span>
+						<span className="flex items-center gap-2">
+							<BiLike className="w-4 h-4" />
+							<span className="text-slate-500 text-xs">{post.likes}</span>
+						</span>
+						<span className="flex items-center gap-2">
+							<BiDislike className="w-4 h-4" />
+							<span className="text-slate-500 text-xs">{post.dislikes}</span>
+						</span>
+					</div>
+				</div>
+				<div>
+					<p>
+						{post.author.name}
+						<p>{formatDistanceToNow(post.createdAt, { locale })}</p>
+						<p>{format(post.createdAt, "dd 'de' MMMM 'de' yyyy")}</p>
+					</p>
+				</div>
+				<div className="flex flex-1 justify-end">
+					{user?.id === post.author.id ? (
+						<div className="flex gap-2">
+							<Button
+								title="Editar post"
+								variant={"ghost"}
+								onClick={() => router.push("/post/update")}
+								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+							>
+								<MdEditNote size={32} />
+							</Button>
+							<Button
+								title="Excluir post"
+								variant={"ghost"}
+								onClick={() => router.push("/post/update")}
+								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+							>
+								<FaTrash size={24} />
+							</Button>
+						</div>
+					) : (
+						<></>
+					)}
+				</div>
 			</div>
-			<div className="flex gap-6 text-slate-400 dark:text-slate-800">
-				<span className="flex items-center gap-2">
-					<FaRegEye className="w-4 h-4" />
-					<span className="text-slate-500 text-xs">{post.views}</span>
-				</span>
-				<span className="flex items-center gap-2">
-					<BiLike className="w-4 h-4" />
-					<span className="text-slate-500 text-xs">{post.likes}</span>
-				</span>
-				<span className="flex items-center gap-2">
-					<BiDislike className="w-4 h-4" />
-					<span className="text-slate-500 text-xs">{post.dislikes}</span>
-				</span>
-			</div>
-			<p>
-				{post.author.name}
-				<p>{formatDistanceToNow(post.createdAt, { locale })}</p>
-				<p>{format(post.createdAt, "dd-MMM-yyyy").toUpperCase()}</p>
-			</p>
 			<p>{post.description}</p>
 			{user !== null ? (
 				<div className="flex self-end">
