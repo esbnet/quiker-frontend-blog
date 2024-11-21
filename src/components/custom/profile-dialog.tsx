@@ -12,16 +12,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { useUser } from "@/context/AuthContext";
 
 export function ProfileDialog() {
 	const [isOpen, setisOpen] = useState(false);
+	const { user } = useUser();
 
 	return (
 		<Dialog open={isOpen} onOpenChange={setisOpen}>
 			<DialogTrigger asChild>
 				<Button
 					variant={"ghost"}
-					className="flex items-center space-x-2"
+					className="flex flex-col gap-2"
 					title="Editar Perfil"
 				>
 					<img
@@ -29,6 +31,7 @@ export function ProfileDialog() {
 						alt=""
 						className="hover:border-slate-600 shadow-lg hover:border rounded-full w-10 h-10"
 					/>
+					<p className="text-[10px]">{user?.name}</p>
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="flex flex-col justify-between items-center gap-8 border-slate-600 dark:border-slate-800 bg-slate-800/90 dark:bg-slate-800/80 shadow-xl p-8 border rounded-xl w-full sm:max-w-[480px] text-slate-200">

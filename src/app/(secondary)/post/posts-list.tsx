@@ -59,6 +59,14 @@ export function PostsList({ initialPosts }: PostListProps) {
 	if (isLoading) return <div>Carregando...</div>;
 	if (error) return <div className="text-red-500">{error}</div>;
 
+	if (posts.length === 0) {
+		return (
+			<div className="text-slate-600 dark:text-slate-300">
+				Nenhum post registrado...
+			</div>
+		);
+	}
+
 	return (
 		<section className="flex gap-6">
 			<div className="bg-slate-300/50 dark:bg-slate-600/20 shadow-lg p-6 rounded-md w-full">
