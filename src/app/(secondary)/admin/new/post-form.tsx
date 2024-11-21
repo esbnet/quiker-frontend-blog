@@ -57,7 +57,6 @@ export default function PostForm() {
 		reValidateMode: "onChange",
 		resolver: zodResolver(schema),
 	});
-	// const onSubmit = (data: FormData) => console.log(data, errors);
 
 	const onSubmit: SubmitHandler<FormData> = (data) => {
 		try {

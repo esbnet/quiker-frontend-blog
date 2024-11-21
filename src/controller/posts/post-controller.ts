@@ -38,7 +38,6 @@ export class PostController {
 		try {
 			return await this.postService.getPostById(id);
 		} catch (error) {
-			console.error("Error fetching post:", error);
 			throw new Error("Failed to fetch post");
 		}
 	}
@@ -47,7 +46,6 @@ export class PostController {
 		try {
 			return await this.postService.registerView(id);
 		} catch (error) {
-			console.error("Error fetching post:", error);
 			throw new Error("Failed to fetch post");
 		}
 	}
@@ -57,7 +55,6 @@ export class PostController {
 			const posts = await this.postService.getAllPosts();
 			return posts;
 		} catch (error) {
-			console.error("Error fetching posts:", error);
 			throw new Error("Failed to fetch posts");
 		}
 	}
