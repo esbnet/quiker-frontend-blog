@@ -1,23 +1,24 @@
 "use client";
 // post/posts.tsx
 
+import { BiDislike, BiLike } from "react-icons/bi";
 import type { CommentProps, PostProps } from "@/types/types";
 import { format, formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
-import { BiDislike, BiLike } from "react-icons/bi";
-import { FaRegEye, FaTrash } from "react-icons/fa";
 
-import { CommentComponent } from "@/components/custom/comment-component";
-import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/AuthContext";
-import { ptBR as locale } from "date-fns/locale";
 import { Anton } from "next/font/google";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { MdEditNote } from "react-icons/md";
+import { Button } from "@/components/ui/button";
+import { CommentComponent } from "@/components/custom/comment-component";
 import { CommentsList } from "./comments-list";
+import { DeletePost } from "./delete/post-delete";
+import { FaRegEye } from "react-icons/fa";
+import Image from "next/image";
+import { MdEditNote } from "react-icons/md";
 import { getComments } from "./commets-get";
 import { getPost } from "./get-post";
+import { ptBR as locale } from "date-fns/locale";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/context/AuthContext";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
@@ -136,24 +137,24 @@ export function Post({ initialPost }: PostListProps) {
 					</p>
 				</div>
 				<div className="flex flex-1 justify-end">
+					{/* garante que só o autor pode editar ou excluir o post */}
 					{user?.id === post.author.id ? (
 						<div className="flex gap-2">
 							<Button
 								title="Editar post"
 								variant={"ghost"}
 								onClick={() => router.push(`/post/${post.id}/edit`)}
-								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 justify-center items-center"
 							>
-								<MdEditNote size={32} />
+								<MdEditNote size={26} />
 							</Button>
-							<Button
-								title="Excluir post"
-								variant={"ghost"}
-								onClick={() => router.push(`/post/${post.id}/edit`)}
-								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
-							>
-								<FaTrash size={24} />
-							</Button>
+							<DeletePost
+								postId={post.id}
+								onDelete={() => {
+									// Ações adicionais após deletar, se necessário
+									console.log("Post deletado com sucesso");
+								}}
+							/>
 						</div>
 					) : (
 						<></>
