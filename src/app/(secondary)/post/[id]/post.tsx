@@ -48,13 +48,10 @@ export function Post({ initialPost }: PostListProps) {
 			setError(null);
 			const responsePost = await getPost(initialPost.id);
 			setPost(responsePost);
-			console.log(responsePost);
-
 			const responseComments = await getComments(initialPost.id);
 			setComments(responseComments);
 		} catch (err) {
 			setError("Erro ao carregar posts");
-			console.error(err);
 		} finally {
 			setIsLoading(false);
 		}
@@ -69,11 +66,8 @@ export function Post({ initialPost }: PostListProps) {
 				method: "POST",
 			});
 			const data = await response.json();
-			console.log(data);
 			fetchPost();
-		} catch (error) {
-			console.error(error);
-		}
+		} catch (error) {}
 	};
 
 	const handleDislike = async () => {
@@ -82,11 +76,8 @@ export function Post({ initialPost }: PostListProps) {
 				method: "POST",
 			});
 			const data = await response.json();
-			console.log(data);
 			fetchPost();
-		} catch (error) {
-			console.error(error);
-		}
+		} catch (error) {}
 	};
 
 	const handleComment = async (comment: string) => {
@@ -99,11 +90,8 @@ export function Post({ initialPost }: PostListProps) {
 				body: JSON.stringify({ comment }),
 			});
 			const data = await response.json();
-			console.log(data);
 			fetchPost();
-		} catch (error) {
-			console.error(error);
-		}
+		} catch (error) {}
 	};
 
 	return (
@@ -136,7 +124,7 @@ export function Post({ initialPost }: PostListProps) {
 				</span>
 			</div>
 			<p>
-				{post.id} -{post.author.name}
+				{post.author.name}
 				<p>{formatDistanceToNow(post.createdAt, { locale })}</p>
 				<p>{format(post.createdAt, "dd-MMM-yyyy").toUpperCase()}</p>
 			</p>

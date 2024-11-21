@@ -93,8 +93,6 @@ export default function SignUp() {
 			const msg = e as AxiosError<{ error: string }>;
 			const error = msg.response?.data.error;
 
-			console.log(msg);
-
 			if (msg.status === 204) {
 				return;
 			}

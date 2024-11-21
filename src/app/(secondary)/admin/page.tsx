@@ -31,9 +31,7 @@ export default async function Blog() {
 		redirect(`/admin/edit/${id}`);
 	}
 
-	function deletePost(id: string) {
-		console.log(id);
-	}
+	function deletePost(id: string) {}
 
 	function logOut() {
 		toast.success("Saindo...");

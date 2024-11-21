@@ -35,7 +35,6 @@ const Posts = () => {
 				setPosts(samplePosts.data);
 				setLoading(false);
 			} catch (error) {
-				console.error("Error fetching posts:", error);
 				setLoading(false);
 			}
 		};

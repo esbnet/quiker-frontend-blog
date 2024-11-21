@@ -43,9 +43,9 @@ export default function Header() {
 					<h1
 						className={`${titleMain.className} font-extrabold text-4xl  text-slate-700 `}
 					>
-						Quiker Artigos...
+						Quiker Artigos
 					</h1>
-					<h1>a tecnologia em evidência</h1>
+					<h1>tecnologia em evidência</h1>
 				</div>
 			</div>
 

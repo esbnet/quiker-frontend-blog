@@ -17,7 +17,5 @@ export async function saveComment({
 		description,
 	});
 
-	console.log(comment);
-
 	return comment.data;
 }

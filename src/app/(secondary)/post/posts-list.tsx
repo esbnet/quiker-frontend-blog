@@ -51,7 +51,6 @@ export function PostsList({ initialPosts }: PostListProps) {
 			setPosts(newPosts);
 		} catch (err) {
 			setError("Erro ao carregar posts");
-			console.error(err);
 		} finally {
 			setIsLoading(false);
 		}
@@ -119,7 +118,6 @@ export function PostsList({ initialPosts }: PostListProps) {
 									<Link href={`/post/${post.id}`} className="flex items-end">
 										<div className="flex items-center gap-1 hover:font-bold hover:dark:text-slate-100 hover:text-slate-900 transition-all">
 											<span>Leia mais </span>
-											{post.id}
 											<MdReadMore className="flex w-4 h-4" />
 										</div>
 									</Link>

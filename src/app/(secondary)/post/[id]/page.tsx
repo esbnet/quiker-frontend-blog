@@ -11,7 +11,5 @@ export default async function PostPage({ params }: PostPageProps) {
 		const initialPost = await getPost(id);
 
 		return <Post initialPost={initialPost} />;
-	} catch (err) {
-		console.error(err);
-	}
+	} catch (err) {}
 }
