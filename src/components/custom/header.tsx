@@ -59,6 +59,15 @@ export default function Header() {
 				>
 					Doc
 				</Button>
+				<Button
+					title="Voltar a página inicial"
+					variant={"outline"}
+					onClick={() => push("/report")}
+					onKeyDown={() => push("/report")}
+					className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+				>
+					Estatística
+				</Button>
 			</div>
 
 			<div className="flex flex-row justify-center sm:justify-end items-center sm:pl-2 w-full sm:w-auto h-full">

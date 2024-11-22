@@ -38,23 +38,15 @@ export const columns: ColumnDef<Post>[] = [
 		},
 	},
 	{
-		header: "Description",
-		accessorKey: "description",
+		header: "Views",
+		accessorKey: "views",
 	},
 	{
-		header: "Image",
-		accessorKey: "imageUrl",
+		header: "Likes",
+		accessorKey: "likes",
 	},
 	{
-		header: "Category",
-		accessorKey: "category",
-	},
-	{
-		header: "Author",
-		accessorKey: "author",
-	},
-	{
-		header: "Created At",
-		accessorKey: "createdAt",
+		header: "Dislikes",
+		accessorKey: "dislikes",
 	},
 ];

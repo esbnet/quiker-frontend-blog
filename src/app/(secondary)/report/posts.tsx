@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import axios from "axios";
-import { columns } from "./_components/columns";
-import { DataTable } from "./_components/data-table";
+import { api } from "@/lib/api";
+import { columns } from "./table/columns";
+import { DataTable } from "./table/data-table";
 
 type AuthorProps = {
 	id: string;
@@ -31,7 +31,7 @@ const Posts = () => {
 		const fetchPosts = async () => {
 			try {
 				// Em um caso real, isso seria substituído por fetch('sua-api/posts')
-				const samplePosts = await axios.get("/api/post/list");
+				const samplePosts = await api.get("/report");
 				setPosts(samplePosts.data);
 				setLoading(false);
 			} catch (error) {
