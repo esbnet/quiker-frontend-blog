@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { useUser } from "@/context/AuthContext";
-import type { PostProps, UserUpdateProps } from "@/types/types";
+import type { PostProps, PostUpdateProps } from "@/types/types";
 import { redirect, useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
@@ -74,18 +74,12 @@ export function EditPostForm({ initialPost }: PostListProps) {
 			description: data.description,
 			imageUrl: data.imageUrl,
 			userId: user.id,
-		} as UserUpdateProps;
+		} as PostUpdateProps;
 
 		try {
 			await updatePost(postData);
 
-			toast.success("Post atualizado com sucesso", {
-				duration: 5000,
-				style: {
-					background: "#333",
-					color: "#fff",
-				},
-			});
+			toast.success("Post atualizado com sucesso");
 		} catch (error) {
 			toast.error(`Erro ao atualizar o Post: ${error}`);
 		}

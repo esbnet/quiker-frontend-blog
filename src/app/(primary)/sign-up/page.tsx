@@ -127,7 +127,6 @@ export default function SignUp() {
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									{/* <FormLabel>Nome</FormLabel> */}
 									<FormControl>
 										<Input placeholder="Nome" {...field} />
 									</FormControl>
@@ -140,7 +139,6 @@ export default function SignUp() {
 							name="email"
 							render={({ field }) => (
 								<FormItem>
-									{/* <FormLabel>Email</FormLabel> */}
 									<FormControl>
 										<Input placeholder="Email" {...field} />
 									</FormControl>

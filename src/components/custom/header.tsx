@@ -9,9 +9,9 @@ import Image from "next/image";
 import { FaHome } from "react-icons/fa";
 import { GiExitDoor } from "react-icons/gi";
 import logo from "../../../public/img/logo.png";
+import { Profile } from "../../app/(primary)/sign-up/profile-component";
 import menuItens from "../../data/menuItens";
 import { Button } from "../ui/button";
-import { Profile } from "./profile-component";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 

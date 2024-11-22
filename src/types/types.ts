@@ -41,7 +41,7 @@ export type CommentProps = {
 	removed: boolean;
 };
 
-export type UserUpdateProps = {
+export type PostUpdateProps = {
 	id: string;
 	title: string;
 	description: string;

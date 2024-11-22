@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { useUser } from "@/context/AuthContext";
 import { api } from "@/lib/api";
 import axios from "axios";
-import { toast } from "sonner";
+import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useUser } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 interface DeletePostProps {
 	postId: string;
@@ -41,12 +41,7 @@ export function DeletePost({ postId, onDelete }: DeletePostProps) {
 		try {
 			await api.delete("/post", { data: { postId, authorId: user?.id } });
 
-			toast.success("Post Deletado com sucesso", {
-				style: {
-					background: "#333",
-					color: "#fff",
-				},
-			});
+			toast.success("Post Deletado com sucesso");
 
 			// Callback opcional após deletar
 			if (onDelete) {
