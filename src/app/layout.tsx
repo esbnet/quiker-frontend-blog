@@ -16,7 +16,7 @@ export const metadata = {
 		template: "%s | Home",
 	},
 	description: "tecnologia em evidência",
-	Icon: "/logo.png",
+	Icon: "/quiker.ico",
 	robots: {
 		index: false,
 		follow: true,
