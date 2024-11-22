@@ -9,11 +9,11 @@ import { BiDislike, BiLike } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
 
+import { getPosts } from "@/services/get-posts";
 import { format, formatDistanceToNow } from "date-fns";
 import { ptBR as locale } from "date-fns/locale";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { getPosts } from "./get-posts";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 

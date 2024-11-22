@@ -1,24 +1,24 @@
 "use client";
 // post/posts.tsx
 
-import { BiDislike, BiLike } from "react-icons/bi";
 import type { CommentProps, PostProps } from "@/types/types";
 import { format, formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
+import { BiDislike, BiLike } from "react-icons/bi";
 
-import { Anton } from "next/font/google";
-import { Button } from "@/components/ui/button";
 import { CommentComponent } from "@/components/custom/comment-component";
+import { Button } from "@/components/ui/button";
+import { useUser } from "@/context/AuthContext";
+import { getPost } from "@/services/post-get";
+import { ptBR as locale } from "date-fns/locale";
+import { Anton } from "next/font/google";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { FaRegEye } from "react-icons/fa";
+import { MdEditNote } from "react-icons/md";
+import { getComments } from "../../../../services/commets-get";
 import { CommentsList } from "./comments-list";
 import { DeletePost } from "./delete/post-delete";
-import { FaRegEye } from "react-icons/fa";
-import Image from "next/image";
-import { MdEditNote } from "react-icons/md";
-import { getComments } from "./commets-get";
-import { getPost } from "./get-post";
-import { ptBR as locale } from "date-fns/locale";
-import { useRouter } from "next/navigation";
-import { useUser } from "@/context/AuthContext";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 

@@ -8,7 +8,7 @@ import { useUser } from "@/context/AuthContext";
 import type { CommentProps } from "@/types/types";
 import { ptBR as locale } from "date-fns/locale";
 import { CiCircleRemove } from "react-icons/ci";
-import { removeComment } from "./comment-remove";
+import { removeComment } from "../../../../services/comment-remove";
 
 interface CommentsListProps {
 	comments: CommentProps[];
