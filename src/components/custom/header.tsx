@@ -1,31 +1,20 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
 import { useUser } from "@/context/AuthContext";
 import { Anton } from "next/font/google";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FaHome } from "react-icons/fa";
 import { GiExitDoor } from "react-icons/gi";
 import logo from "../../../public/img/logo.png";
 import { Profile } from "../../app/(primary)/sign-up/profile-component";
-import menuItens from "../../data/menuItens";
 import { Button } from "../ui/button";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
 export default function Header() {
 	const { logout, user } = useUser();
-
 	const { push } = useRouter();
-	const asPath = usePathname();
-	const [menuSelected, setMenuSelected] = useState("quem sou");
-
-	useEffect(() => {
-		const selectedMenu = menuItens.find((menu) => menu.href === asPath);
-		return setMenuSelected(selectedMenu?.name || "quem sou");
-	}, [asPath]);
 
 	return (
 		<section className="top-0 z-50 sticky flex sm:flex-row flex-col justify-items-center sm:justify-between items-center border-slate-600/50 backdrop-blur-lg backdrop-brightness-90 mb-4 sm:border-b w-full sm:h-[10vh]">
@@ -43,9 +32,11 @@ export default function Header() {
 					<h1
 						className={`${titleMain.className} font-extrabold text-4xl  text-slate-700 `}
 					>
-						Quiker Artigos
+						Quiker News
 					</h1>
-					<h1>tecnologia em evidência</h1>
+					<h1 className="w-full text-slate-500 text-sm tracking-widest">
+						tecnologia em evidência
+					</h1>
 				</div>
 			</div>
 
