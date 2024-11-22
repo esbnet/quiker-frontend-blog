@@ -1,5 +1,8 @@
+import { metadata } from "@/app/layout";
 import { getPost } from "@/services/post-get";
 import { Post } from "./post";
+
+metadata.title.default = "Quiker News | Post";
 
 interface PostPageProps {
 	params: { id: string };

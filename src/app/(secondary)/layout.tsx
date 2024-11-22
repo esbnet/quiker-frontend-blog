@@ -1,5 +1,8 @@
 import Footer from "@/components/custom/footer";
 import Header from "@/components/custom/header";
+import { metadata } from "../layout";
+
+metadata.title.default = "Quiker News | Home";
 
 export default function HomeLayout({
 	children,
