@@ -65,9 +65,8 @@ export default function SignIn() {
 			setUser(user);
 
 			toast.success("Que bom te ver de novo!", {
-				description: `Somos gratos por sua contribuição ${user.name}. 😃`,
+				description: `Somos gratos por sua contribuição ${user.name}.`,
 				duration: 5000,
-				position: "top-right",
 				icon: <FaUser />,
 
 				style: {
