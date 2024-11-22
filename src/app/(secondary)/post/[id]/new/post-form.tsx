@@ -15,7 +15,7 @@ import { useUser } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
 import { TiCancelOutline } from "react-icons/ti";
-import { addPost } from "./post-add";
+import { addPost } from "../../../../../services/post-add";
 
 const schema = z.object({
 	title: z

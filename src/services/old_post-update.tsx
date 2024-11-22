@@ -14,15 +14,6 @@ import { z } from "zod";
 import { redirect, useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
 
-type apiURL = string | undefined;
-let apiURL: apiURL;
-
-if (process.env.NODE_ENV === "production") {
-	apiURL = process.env.API_PROD;
-} else {
-	apiURL = process.env.API_DEV;
-}
-
 const schema = z.object({
 	title: z
 		.string()
@@ -44,7 +35,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function PostUpdate() {
+export default function __PostUpdate() {
 	const route = useRouter();
 	const {
 		control,
@@ -60,7 +51,7 @@ export default function PostUpdate() {
 
 	const onSubmit: SubmitHandler<FormData> = (data) => {
 		try {
-			const response = fetch("/api/post/new", {
+			fetch("/api/post/new", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -72,9 +63,7 @@ export default function PostUpdate() {
 		} catch (error) {
 			toast.error(`Erro ao criar o Post: ${error}`);
 		}
-
 		reset();
-
 		redirect("/login");
 	};
 

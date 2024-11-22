@@ -1,4 +1,4 @@
-import { getPost } from "../get-post";
+import { getPost } from "@/services/post-get";
 import { EditPostForm } from "./edit-page";
 
 interface PostPageProps {

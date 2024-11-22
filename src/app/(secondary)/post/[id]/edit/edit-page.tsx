@@ -16,7 +16,7 @@ import type { PostProps, PostUpdateProps } from "@/types/types";
 import { redirect, useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
-import { updatePost } from "./post-update";
+import { updatePost } from "../../../../../services/post-update";
 
 const schema = z.object({
 	title: z

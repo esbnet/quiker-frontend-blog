@@ -11,6 +11,7 @@ Para utilizá-lo, basta registrar-se no aplicativo e já será hapto a realizar 
 - React - 18.3 - Linguagem de programação
 - Next - 15.0 - Framework para melhor desempenho, CEO
 - Typescript - 4.5 - Typagem, Segurança e Produtividade
+- Shadcn - Lib de componentes copiar colar, sem dependências
 - Prisma - ORM que otimiza o processo de criação do DB e manipulação de dados
 - Axios - 1.7 - Gerenciar requisiçõe HTTP 
 - Tailwind Css - 3.3 - Framework de estilo CSS poderoso, flexível e rápido
