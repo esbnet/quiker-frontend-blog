@@ -53,20 +53,20 @@ export default function Header() {
 				<Button
 					title="Voltar a página inicial"
 					variant={"outline"}
-					onClick={() => push("/")}
-					onKeyDown={() => push("/")}
-					className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
-				>
-					Doc
-				</Button>
-				<Button
-					title="Voltar a página inicial"
-					variant={"outline"}
 					onClick={() => push("/report")}
 					onKeyDown={() => push("/report")}
 					className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
 				>
 					Estatística
+				</Button>
+				<Button
+					title="Voltar a página inicial"
+					variant={"outline"}
+					onClick={() => push("/")}
+					onKeyDown={() => push("/")}
+					className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+				>
+					Doc
 				</Button>
 			</div>
 

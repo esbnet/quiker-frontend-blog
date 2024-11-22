@@ -1,4 +1,4 @@
-# Quiker News
+# Quiker Artigos
 
 Esta aplicação se propõe a ser um site de notícias compartilhado. Nele qualquer pesso podera se cadastrar e criar artigos que ficaram disponíveis ao público da internet. 
 
