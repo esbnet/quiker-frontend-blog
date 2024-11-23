@@ -10,11 +10,9 @@ import { FaRegEye } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
 
 import { getPosts } from "@/services/get-posts";
-import { format, formatDistanceToNow } from "date-fns";
-import { ptBR as locale } from "date-fns/locale";
+import { FormattedDate } from "@/utils/format-date";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
 interface PostListProps {
@@ -99,10 +97,11 @@ export function PostsList({ initialPosts }: PostListProps) {
 									</span>
 									<div className="flex flex-col items-end font-medium text-xs">
 										<span>
-											{format(post.createdAt, "dd-MMM-yyyy").toUpperCase()}
+											<FormattedDate date={new Date(post.createdAt)} />
+											{/* {format(post.createdAt, "dd-MMM-yyyy").toUpperCase()} */}
 										</span>
 										<span>
-											{formatDistanceToNow(post.createdAt, { locale })}
+											{/* {formatDistanceToNow(post.createdAt, { locale })} */}
 										</span>
 									</div>
 								</h2>

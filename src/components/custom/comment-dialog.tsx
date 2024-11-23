@@ -43,7 +43,7 @@ export function CommentDialog({ authorId, postId }: CommentProps) {
 			setisOpen(false);
 		}
 
-		route.refresh();
+		route.push(`/post/${postId}`);
 	};
 
 	return (

@@ -69,7 +69,7 @@ export default function PostForm() {
 
 		reset();
 
-		route.push("/sign-in");
+		route.push("/");
 	};
 
 	return (
