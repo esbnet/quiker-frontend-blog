@@ -56,10 +56,10 @@ export default async function Blog() {
 			<h2 className="my-2 font-extrabold text-md">3. Configurar ambiente</h2>
 			<p className="my-4">
 				Criar um arquivo .env na pasta raíz do projeto e inserir a variável de
-				ambiente abaixo: (ver modelo na pasta root, arquivo env.sample){" "}
+				ambiente abaixo: (ver modelo na pasta root, arquivo env.sample)
 			</p>
 			<code className="bg-slate-200 mb-8 p-2 pl-5 rounded-md">
-				NEXT_PUBLIC_API_URL="http://localhost:3333"
+				NEXT_PUBLIC_API_URL=`&quot`http://localhost:3333`&lquot`
 			</code>
 			<h2 className="font-extrabold text-xl">Rodar o projeto</h2>
 			<p className="my-4">

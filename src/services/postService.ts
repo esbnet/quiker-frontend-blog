@@ -43,4 +43,19 @@ export class PostService {
 	async deletePost(id: string): Promise<void> {
 		await api.delete(`/posts/${id}`);
 	}
+
+	async updatePostViews(postId: string) {
+		try {
+			const { data } = await api.patch(`/post/view/${postId}`, {
+				// Passa um objeto vazio ou um incremento específico
+				increment: 1,
+			});
+
+			// Retorna o novo número de views, se necessário
+			return data.views;
+		} catch (error) {
+			console.error("Erro ao atualizar views:", error);
+			return null;
+		}
+	}
 }

@@ -6,11 +6,8 @@ interface CommentProps {
 	description: string;
 }
 
-export async function removeComment(id: string) {
-	const comment = await api.put<CommentProps>("/comment", {
-		id,
-		removed: true,
-	});
+export async function deletePost(id: string) {
+	const comment = await api.delete("/post/${id}");
 
 	return comment.data;
 }

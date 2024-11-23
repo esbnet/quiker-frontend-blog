@@ -4,14 +4,16 @@ interface UserUpdateProps {
 	id: string;
 	name: string;
 	email: string;
+	avatar: string;
 }
 
 export async function updateUser(data: UserUpdateProps) {
 	try {
-		const user = await api.put<UserUpdateProps>("/user", {
+		const user = await api.patch<UserUpdateProps>("/user", {
 			id: data.id,
 			name: data.name,
 			email: data.email,
+			password: "Ab123456*",
 		});
 
 		return user.data;

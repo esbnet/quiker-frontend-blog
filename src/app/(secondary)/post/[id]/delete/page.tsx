@@ -4,7 +4,15 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { DeletePost } from "./post-delete";
 
-export default function PostActions({ postId }: { postId: string }) {
+interface DeletePostPageProps {
+	params: {
+		postId: string;
+	};
+}
+
+export default function PostActions({ params }: DeletePostPageProps) {
+	const { postId } = params;
+
 	const router = useRouter();
 	return (
 		<div className="flex gap-2">

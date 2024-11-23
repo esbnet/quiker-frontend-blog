@@ -9,8 +9,10 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { saveComment } from "@/services/comment-save";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdSend } from "react-icons/md";
+import { toast } from "sonner";
 import { Textarea } from "../ui/textarea";
 
 interface CommentProps {
@@ -20,15 +22,28 @@ interface CommentProps {
 
 export function CommentDialog({ authorId, postId }: CommentProps) {
 	const [isOpen, setisOpen] = useState(false);
-
 	const [comment, setComment] = useState("");
 
+	const route = useRouter();
+
 	const handleComment = async () => {
-		await saveComment({
-			authorId,
-			postId,
-			description: comment,
-		});
+		try {
+			await saveComment({
+				authorId,
+				postId,
+				description: comment,
+			});
+
+			toast.success("Comentario registrado com sucesso");
+		} catch (error) {
+			toast.error("Erro ao registrar o comentario", {
+				description: "Tente novamente mais tarde",
+			});
+		} finally {
+			setisOpen(false);
+		}
+
+		route.refresh();
 	};
 
 	return (
@@ -43,7 +58,7 @@ export function CommentDialog({ authorId, postId }: CommentProps) {
 			</DialogTrigger>
 			<DialogContent className="flex flex-col justify-between items-center gap-8 border-slate-600 dark:border-slate-800 bg-slate-800/90 dark:bg-slate-800/80 shadow-xl p-8 border rounded-xl w-full sm:max-w-[480px] text-slate-200">
 				<DialogHeader>
-					<DialogTitle>Comentar no artigo</DialogTitle>
+					<DialogTitle>Comentar o artigo</DialogTitle>
 					<DialogDescription>
 						Faça seu comentario aqui de forma respeitosa e cordial. Preze pela
 						boa convivência e cordialidade.
