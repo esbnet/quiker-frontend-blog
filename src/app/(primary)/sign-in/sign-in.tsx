@@ -26,10 +26,6 @@ export default function SignIn() {
 	const { setUser, user } = useUser();
 	const router = useRouter();
 
-	if (user) {
-		router.push("/");
-	}
-
 	const formSchema = z.object({
 		email: z.string().email("Email inválido"),
 		password: z
@@ -64,31 +60,18 @@ export default function SignIn() {
 
 			setUser(user);
 
-			toast.success("Que bom te ver de novo!", {
+			toast.success("Que bom te ver novamente!", {
 				description: `Somos gratos por sua contribuição ${user.name}.`,
-				duration: 5000,
 				icon: <FaUser />,
-
-				style: {
-					backgroundColor: "#119A11CE",
-					color: "white",
-					fontWeight: "bold",
-				},
 			});
+
+			router.push("/");
 
 			setIsSubmit(false);
 		} catch (error) {
 			toast.warning("Autenticação", {
 				description: "Verifique suas credenciais e tente novamente",
-				duration: 5000,
-				position: "top-right",
 				icon: <FaUser />,
-
-				style: {
-					backgroundColor: "#A52A2A",
-					color: "white",
-					fontWeight: "bold",
-				},
 			});
 		}
 	}
@@ -121,7 +104,7 @@ export default function SignIn() {
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Input placeholder="Senha" {...field} />
+										<Input type="password" placeholder="Senha" {...field} />
 									</FormControl>
 									<FormMessage className="text-red-700 text-xs" />
 								</FormItem>

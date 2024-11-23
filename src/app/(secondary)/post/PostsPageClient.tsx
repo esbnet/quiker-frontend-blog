@@ -6,8 +6,8 @@ import { useUser } from "@/context/AuthContext";
 import type { PostProps } from "@/types/types";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa";
-import BreakNews from "./post/break-news";
-import { PostsList } from "./post/posts-list";
+import BreakNews from "./break-news";
+import { PostsList } from "./posts-list";
 
 interface PostsPageClientProps {
 	initialPosts: PostProps[];

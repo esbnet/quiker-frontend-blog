@@ -43,11 +43,6 @@ interface PostListProps {
 
 export function EditPostForm({ initialPost }: PostListProps) {
 	const { user } = useUser();
-
-	if (user === null) {
-		return redirect("/sign-in");
-	}
-
 	const route = useRouter();
 
 	const {
@@ -67,6 +62,10 @@ export function EditPostForm({ initialPost }: PostListProps) {
 		},
 	});
 
+	if (user === null) {
+		return redirect("/sign-in");
+	}
+
 	const handleEditPost: SubmitHandler<FormData> = async (data) => {
 		const postData = {
 			id: initialPost.id,
@@ -78,12 +77,12 @@ export function EditPostForm({ initialPost }: PostListProps) {
 
 		try {
 			await updatePost(postData);
-
-			toast.success("Post atualizado com sucesso");
 		} catch (error) {
 			toast.error(`Erro ao atualizar o Post: ${error}`);
 		}
-		route.back();
+
+		toast.success("Post atualizado com sucesso");
+		route.refresh();
 	};
 
 	return (

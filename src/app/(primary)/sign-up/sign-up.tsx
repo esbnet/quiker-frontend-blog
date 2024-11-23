@@ -99,15 +99,13 @@ export default function SignUp() {
 
 			toast.warning(error, {
 				description: "Email já cadastrado",
-				duration: 5000,
-				position: "top-right",
 				icon: <FaUser />,
 
-				style: {
-					backgroundColor: "#A52A2AC9",
-					color: "white",
-					fontWeight: "bold",
-				},
+				// style: {
+				// 	backgroundColor: "#A52A2AC9",
+				// 	color: "white",
+				// 	fontWeight: "bold",
+				// },
 			});
 		}
 	}
@@ -154,7 +152,7 @@ export default function SignUp() {
 								<FormItem>
 									{/* <FormLabel>Senha</FormLabel> */}
 									<FormControl>
-										<Input placeholder="Senha" {...field} />
+										<Input type="password" placeholder="Senha" {...field} />
 									</FormControl>
 									<FormMessage className="text-red-700 text-xs" />
 								</FormItem>
@@ -167,7 +165,11 @@ export default function SignUp() {
 								<FormItem>
 									{/* <FormLabel>Confirar Senha</FormLabel> */}
 									<FormControl>
-										<Input placeholder="Confirme a senha" {...field} />
+										<Input
+											type="password"
+											placeholder="Confirme a senha"
+											{...field}
+										/>
 									</FormControl>
 									<FormMessage className="text-red-700 text-xs" />
 								</FormItem>

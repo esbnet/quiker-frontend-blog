@@ -5,6 +5,7 @@ export type AuthorProps = {
 	email: string;
 	password: string;
 	createdAt: string;
+	avatar: string;
 };
 
 export type PostProps = {

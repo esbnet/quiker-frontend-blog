@@ -37,12 +37,15 @@ export default function RootLayout({
 					toastOptions={{
 						duration: 4000,
 						classNames: {
-							toast: "bg-blue-400",
-							title: "text-slate-400",
+							title: "text-slate-100",
 							description: "text-slate-200",
 							actionButton: "bg-zinc-400",
 							cancelButton: "bg-orange-400",
 							closeButton: "bg-lime-400",
+							success: "bg-green-400/50",
+							info: "bg-blue-400-50",
+							warning: "bg-yellow-400/50",
+							error: "bg-red-400/50",
 						},
 					}}
 					icons={{

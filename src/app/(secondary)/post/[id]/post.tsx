@@ -10,6 +10,7 @@ import { CommentComponent } from "@/components/custom/comment-component";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/AuthContext";
 import { getPost } from "@/services/post-get";
+import { updatePostView } from "@/services/post-update-view";
 import { ptBR as locale } from "date-fns/locale";
 import { Anton } from "next/font/google";
 import Image from "next/image";
@@ -18,7 +19,6 @@ import { FaRegEye } from "react-icons/fa";
 import { MdEditNote } from "react-icons/md";
 import { getComments } from "../../../../services/commets-get";
 import { CommentsList } from "./comments-list";
-import { DeletePost } from "./delete/post-delete";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
@@ -32,25 +32,29 @@ export function Post({ initialPost }: PostListProps) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	const { user } = useUser();
 	const router = useRouter();
+	const { user } = useUser();
 
 	useEffect(() => {
 		fetchPost(); // Primeira chamada
-
-		document.addEventListener("visibilitychange", () => {
-			if (document.visibilityState === "visible") {
-				fetchPost();
-			}
-		});
+		// document.addEventListener("visibilitychange", () => {
+		// 	if (document.visibilityState === "visible") {
+		// 		fetchPost();
+		// 	}
+		// });
 	}, []);
 
 	const fetchPost = async () => {
 		try {
 			setIsLoading(true);
 			setError(null);
+			// atualizar a visualização
+			const response = await updatePostView(initialPost.id);
+			// obtem informações do post
 			const responsePost = await getPost(initialPost.id);
 			setPost(responsePost);
+
+			// obtem informações dos comentários
 			const responseComments = await getComments(initialPost.id);
 			setComments(responseComments);
 		} catch (err) {
@@ -148,13 +152,13 @@ export function Post({ initialPost }: PostListProps) {
 							>
 								<MdEditNote size={26} />
 							</Button>
-							<DeletePost
+							{/* <DeletePost
 								postId={post.id}
 								onDelete={() => {
 									// Ações adicionais após deletar, se necessário
 									console.log("Post deletado com sucesso");
 								}}
-							/>
+							/> */}
 						</div>
 					) : (
 						<></>

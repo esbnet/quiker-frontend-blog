@@ -10,7 +10,6 @@ import { redirect, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useUser } from "@/context/AuthContext";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -18,6 +17,7 @@ import { z } from "zod";
 import { updateUser } from "@/services/user-update";
 import type { AuthorProps } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import { useState } from "react";
 import { type SubmitHandler, useForm } from "react-hook-form";
 
@@ -33,12 +33,7 @@ type FormData = z.infer<typeof schema>;
 
 export function ProfileDialog() {
 	const [isOpen, setisOpen] = useState(false);
-	const { user } = useUser();
-
-	if (user === null) {
-		return redirect("/sign-in");
-	}
-
+	const { user, setUser } = useUser();
 	const route = useRouter();
 
 	const {
@@ -57,6 +52,10 @@ export function ProfileDialog() {
 		},
 	});
 
+	if (user === null) {
+		return redirect("/sign-in");
+	}
+
 	const handleEditProfile: SubmitHandler<FormData> = async (data) => {
 		const postData = {
 			id: user?.id,
@@ -65,16 +64,14 @@ export function ProfileDialog() {
 		} as AuthorProps;
 
 		try {
-			console.log("DADOS A SEREM ENVIADOS AO updateUser", postData);
-			updateUser(postData);
-
-			toast.success("Post atualizado com sucesso");
-
-			route.refresh();
+			await updateUser(postData);
+			toast.success("Usuário atualizado com sucesso", {});
+			setisOpen(false);
+			setUser(postData);
 		} catch (error) {
 			toast.error(`Erro ao atualizar o Post: ${error}`);
 		}
-		route.back();
+		route.refresh();
 	};
 
 	return (
@@ -85,9 +82,11 @@ export function ProfileDialog() {
 					className="flex flex-col gap-2"
 					title="Editar Perfil"
 				>
-					<img
+					<Image
 						src="https://github.com/esbnet.png"
 						alt=""
+						width={40}
+						height={40}
 						className="hover:border-slate-600 shadow-lg hover:border rounded-full w-10 h-10"
 					/>
 					<p className="text-[10px]">{user?.name}</p>
@@ -105,10 +104,7 @@ export function ProfileDialog() {
 					className="gap-4 grid py-4 w-full"
 					onSubmit={handleSubmit(handleEditProfile)}
 				>
-					<div className="items-center gap-4 grid grid-cols-4 w-full">
-						<Label htmlFor="name" className="text-right">
-							Nome
-						</Label>
+					<div className="items-center grid grid-cols-3 w-full">
 						<Input
 							{...register("name")}
 							type="text"
@@ -118,13 +114,15 @@ export function ProfileDialog() {
 							className="col-span-3"
 						/>
 						{errors.name && (
-							<p className="text-red-500 text-sm">{errors.name.message}</p>
+							<p className="grid col-span-4 text-red-500 text-sm">
+								{errors.name.message}
+							</p>
 						)}
 					</div>
-					<div className="items-center gap-4 grid grid-cols-4">
-						<Label htmlFor="eamil" className="text-right">
+					<div className="items-center grid grid-cols-3 w-full">
+						{/* <Label htmlFor="eamil" className="text-right">
 							Email
-						</Label>
+						</Label> */}
 						<Input
 							{...register("email")}
 							type="text"
@@ -132,6 +130,7 @@ export function ProfileDialog() {
 							id="eamil"
 							defaultValue="email@exemplo.com"
 							className="col-span-3"
+							disabled
 						/>
 						{errors.email && (
 							<p className="text-red-500 text-sm">{errors.email.message}</p>

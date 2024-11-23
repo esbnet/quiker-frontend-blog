@@ -62,8 +62,8 @@ export default function Header() {
 				<Button
 					title="Voltar a página inicial"
 					variant={"outline"}
-					onClick={() => push("/")}
-					onKeyDown={() => push("/")}
+					onClick={() => push("/doc")}
+					onKeyDown={() => push("/doc")}
 					className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
 				>
 					Doc

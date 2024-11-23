@@ -63,9 +63,9 @@ export class PostController {
 		return this.posts.filter((post) => post.author.id === authorId);
 	}
 
-	async getPostsByCategory(category: string): Promise<PostProps[]> {
-		return this.posts.filter((post) => post.category === category);
-	}
+	// async getPostsByCategory(category: string): Promise<PostProps[]> {
+	// 	return this.posts.filter((post) => post.category === category);
+	// }
 
 	async updatePost(
 		id: string,
@@ -103,8 +103,7 @@ export class PostController {
 		return this.posts.filter(
 			(post) =>
 				post.title.toLowerCase().includes(lowercaseQuery) ||
-				post.description.toLowerCase().includes(lowercaseQuery) ||
-				post.category.toLowerCase().includes(lowercaseQuery),
+				post.description.toLowerCase().includes(lowercaseQuery),
 		);
 	}
 }

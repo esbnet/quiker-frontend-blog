@@ -1,11 +1,11 @@
 "use client";
 
-import { format, formatDistanceToNow } from "date-fns";
 import { FaTrash, FaUser } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/AuthContext";
 import type { CommentProps } from "@/types/types";
+import { formatDistanceToNow } from "date-fns";
 import { ptBR as locale } from "date-fns/locale";
 import { CiCircleRemove } from "react-icons/ci";
 import { removeComment } from "../../../../services/comment-remove";
@@ -31,19 +31,18 @@ export function CommentsList({ comments, postAuthorId }: CommentsListProps) {
 					<div className="flex items-center gap-4" key={comment.id}>
 						<FaUser size={24} className="rounded-full" />
 						<div
-							className={`bg-slate-600/20  p-4 rounded-md ${comment.removed && "backdrop-blur-2xl backdrop-contrast-125 blur-sm"}`}
+							className={`${comment.removed && "backdrop-blur-2xl backdrop-contrast-125 blur-sm"}`}
 						>
-							<p className="font-bold text-xs translucent">
-								{comment.user.name} |
-								<span>
-									{formatDistanceToNow(new Date(comment.createdAt), { locale })}
-									{format(
-										new Date(comment.createdAt),
-										"dd-MMM-yyyy",
-									).toUpperCase()}
-								</span>
-							</p>
-							<p>{comment.description}</p>
+							<div className={"bg-slate-600/20 p-4 rounded-full "}>
+								<p className="font-bold text-[0.6rem] translucent">
+									{comment.user.name}
+									{/* <span>{format(new Date(comment.createdAt), "MMM-yyyy")}</span> */}
+								</p>
+								<p>{comment.description}</p>
+							</div>
+							<span className="pl-4 font-bold text-[0.6rem]">
+								{formatDistanceToNow(new Date(comment.createdAt), { locale })}
+							</span>
 						</div>
 						{comment.removed ? (
 							<p className="text-red-600">
@@ -51,8 +50,8 @@ export function CommentsList({ comments, postAuthorId }: CommentsListProps) {
 							</p>
 						) : (
 							<>
-								{(user?.id === comment.user.id ||
-									(postAuthorId === comment.user.id && user?.id)) && (
+								{(user?.id === postAuthorId ||
+									user?.id === comment.user.id) && (
 									<Button
 										title="Excluir comentario"
 										onClick={() => handleRemoveComment(comment.id)}

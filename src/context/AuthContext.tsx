@@ -25,17 +25,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 	const logout = () => {
 		setUser(null);
 
-		toast.success("Agradecemos a sua visita!", {
-			description: "Volte sempre! 👋 ",
-			duration: 5000,
-			position: "top-right",
+		toast.warning("Agradecemos a sua visita!", {
+			description: "Volte sempre!",
 			icon: <FaUser />,
-
-			style: {
-				backgroundColor: "#BDBA13CE",
-				color: "white",
-				fontWeight: "bold",
-			},
 		});
 		// Aqui você pode limpar tokens, cookies, etc.
 	};
