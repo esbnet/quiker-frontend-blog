@@ -82,7 +82,7 @@ export function EditPostForm({ initialPost }: PostListProps) {
 		}
 
 		toast.success("Post atualizado com sucesso");
-		route.refresh();
+		route.push("/");
 	};
 
 	return (

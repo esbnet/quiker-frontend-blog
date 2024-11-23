@@ -57,7 +57,7 @@ export default function RootLayout({
 					}}
 				/>
 				<UserProvider>
-					<main>{children}</main>
+					<div suppressHydrationWarning={true}>{children}</div>
 				</UserProvider>
 			</body>
 		</html>

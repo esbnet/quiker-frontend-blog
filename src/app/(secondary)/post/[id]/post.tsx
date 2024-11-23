@@ -48,11 +48,10 @@ export function Post({ initialPost }: PostListProps) {
 		try {
 			setIsLoading(true);
 			setError(null);
-			// atualizar a visualização
-			const response = await updatePostView(initialPost.id);
 			// obtem informações do post
 			const responsePost = await getPost(initialPost.id);
 			setPost(responsePost);
+			const response = await updatePostView(initialPost.id);
 
 			// obtem informações dos comentários
 			const responseComments = await getComments(initialPost.id);
