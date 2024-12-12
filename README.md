@@ -1,6 +1,6 @@
 # Quiker News
 
-Esta aplicação se propõe a ser um site de notícias compartilhado. Nele qualquer pesso podera se cadastrar e criar artigos que ficaram disponíveis ao público da internet. 
+Esta aplicação se propõe a ser um site de compartilhamento de notícias. Nele qualquer pesso podera se cadastrar e criar artigos que ficaram disponíveis ao público da internet. 
 
 Para utilizá-lo, basta registrar-se no aplicativo e já será hapto a realizar postage, commentários em postagens de terceiros e dar manutenção em seus próprios comentários, como excluír, por exemplo.
 
