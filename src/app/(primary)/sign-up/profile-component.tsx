@@ -7,7 +7,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useUser } from "@/context/AuthContext";
+import { useUser } from "@/context/user-context";
 import { ProfileDialog } from "./profile-dialog";
 
 export function Profile() {

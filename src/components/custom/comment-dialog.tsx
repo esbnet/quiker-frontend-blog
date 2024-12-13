@@ -43,7 +43,7 @@ export function CommentDialog({ authorId, postId }: CommentProps) {
 			setisOpen(false);
 		}
 
-		route.refresh();
+		route.push(`/post/${postId}`);
 	};
 
 	return (
@@ -51,7 +51,7 @@ export function CommentDialog({ authorId, postId }: CommentProps) {
 			<DialogTrigger asChild>
 				<Button
 					variant={"ghost"}
-					className="flex items-center hover:text-indigo-600"
+					className="flex items-center hover:text-indigo-600 transition-all animate-pulse hover:animate-bounce"
 				>
 					Comentar
 				</Button>

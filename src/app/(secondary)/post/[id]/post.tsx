@@ -1,33 +1,28 @@
-"use client";
 // post/posts.tsx
+"use client";
 
-import type { CommentProps, PostProps } from "@/types/types";
-import { format, formatDistanceToNow } from "date-fns";
-import { useEffect, useState } from "react";
 import { BiDislike, BiLike } from "react-icons/bi";
 
-import { CommentComponent } from "@/components/custom/comment-component";
-import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/AuthContext";
-import { getPost } from "@/services/post-get";
-import { updatePostView } from "@/services/post-update-view";
-import { ptBR as locale } from "date-fns/locale";
 import { Anton } from "next/font/google";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { FaRegEye } from "react-icons/fa";
-import { MdEditNote } from "react-icons/md";
-import { getComments } from "../../../../services/commets-get";
+import { Button } from "@/components/ui/button";
+// import type { PostProps } from "@/types/post-type";
+import { CommentComponent } from "@/components/custom/comment-component";
+import type { CommentProps } from "@/types/comment-type";
 import { CommentsList } from "./comments-list";
+import { FaRegEye } from "react-icons/fa";
+import Image from "next/image";
+import { MdEditNote } from "react-icons/md";
+import type { PostProps } from "@/types/post-type";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useUser } from "@/context/user-context";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
-
-interface PostListProps {
-	initialPost: PostProps;
+interface PostParams {
+	post: PostProps;
 }
 
-export function Post({ initialPost }: PostListProps) {
-	const [post, setPost] = useState<PostProps>(initialPost);
+export default function Post___({ post }: PostParams) {
 	const [comments, setComments] = useState<CommentProps[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
@@ -35,71 +30,8 @@ export function Post({ initialPost }: PostListProps) {
 	const router = useRouter();
 	const { user } = useUser();
 
-	useEffect(() => {
-		fetchPost(); // Primeira chamada
-		// document.addEventListener("visibilitychange", () => {
-		// 	if (document.visibilityState === "visible") {
-		// 		fetchPost();
-		// 	}
-		// });
-	}, []);
-
-	const fetchPost = async () => {
-		try {
-			setIsLoading(true);
-			setError(null);
-			// atualizar a visualização
-			const response = await updatePostView(initialPost.id);
-			// obtem informações do post
-			const responsePost = await getPost(initialPost.id);
-			setPost(responsePost);
-
-			// obtem informações dos comentários
-			const responseComments = await getComments(initialPost.id);
-			setComments(responseComments);
-		} catch (err) {
-			setError("Erro ao carregar posts");
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
 	if (isLoading) return <div>Carregando...</div>;
 	if (error) return <div className="text-red-500">{error}</div>;
-
-	const handleLike = async () => {
-		try {
-			const response = await fetch(`/api/post/${post.id}/like`, {
-				method: "POST",
-			});
-			const data = await response.json();
-			fetchPost();
-		} catch (error) {}
-	};
-
-	const handleDislike = async () => {
-		try {
-			const response = await fetch(`/api/post/${post.id}/dislike`, {
-				method: "POST",
-			});
-			const data = await response.json();
-			fetchPost();
-		} catch (error) {}
-	};
-
-	const handleComment = async (comment: string) => {
-		try {
-			const response = await fetch(`/api/post/${post.id}/comment`, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ comment }),
-			});
-			const data = await response.json();
-			fetchPost();
-		} catch (error) {}
-	};
 
 	return (
 		<section className="flex flex-col gap-6 text-slate-600 dark:text-slate-300">
@@ -135,20 +67,20 @@ export function Post({ initialPost }: PostListProps) {
 				</div>
 				<div>
 					<p>
-						{post.author.name}
-						<p>{formatDistanceToNow(post.createdAt, { locale })}</p>
-						<p>{format(post.createdAt, "dd 'de' MMMM 'de' yyyy")}</p>
+						{/* {post.author.name} */}
+						{/* <p>{formatDistanceToNow(new Date(post.createdAt), { locale })}</p>
+						<p>{format(new Date(post.createdAt), "dd 'de' MMMM 'de' yyyy")}</p> */}
 					</p>
 				</div>
 				<div className="flex flex-1 justify-end">
 					{/* garante que só o autor pode editar ou excluir o post */}
-					{user?.id === post.author.id ? (
+					{user !== null && user?.id === post.author.id ? (
 						<div className="flex gap-2">
 							<Button
 								title="Editar post"
 								variant={"ghost"}
 								onClick={() => router.push(`/post/${post.id}/edit`)}
-								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 justify-center items-center"
+								className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 justify-center items-center animate-pulse hover:animate-bounce"
 							>
 								<MdEditNote size={26} />
 							</Button>
@@ -170,13 +102,13 @@ export function Post({ initialPost }: PostListProps) {
 				<div className="flex self-end">
 					<Button
 						variant={"ghost"}
-						className="flex items-center hover:text-indigo-600"
+						className="flex items-center hover:text-indigo-600 animate-pulse hover:animate-bounce"
 					>
 						<BiLike className="w-6 h-6" />
 					</Button>
 					<Button
 						variant={"ghost"}
-						className="flex items-center hover:text-indigo-600"
+						className="flex items-center hover:text-indigo-600 transition-all animate-pulse hover:animate-bounce"
 					>
 						<BiDislike className="w-6 h-6" />
 					</Button>

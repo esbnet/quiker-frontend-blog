@@ -3,8 +3,8 @@
 import { FaTrash, FaUser } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/AuthContext";
-import type { CommentProps } from "@/types/types";
+import { useUser } from "@/context/user-context";
+import type { CommentProps } from "@/types/comment-type";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR as locale } from "date-fns/locale";
 import { CiCircleRemove } from "react-icons/ci";

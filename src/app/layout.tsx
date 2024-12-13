@@ -4,7 +4,7 @@ import { FaCheck, FaInfo } from "react-icons/fa";
 import { MdErrorOutline, MdOutlineDownload } from "react-icons/md";
 
 import { Toaster } from "@/components/ui/sonner";
-import { UserProvider } from "@/context/AuthContext";
+import { AppProviders } from "@/context/app-providers";
 import { Jura } from "next/font/google";
 import { CiWarning } from "react-icons/ci";
 
@@ -56,9 +56,10 @@ export default function RootLayout({
 						loading: <MdOutlineDownload />,
 					}}
 				/>
-				<UserProvider>
-					<main>{children}</main>
-				</UserProvider>
+
+				<AppProviders>
+					<div suppressHydrationWarning={true}>{children}</div>
+				</AppProviders>
 			</body>
 		</html>
 	);

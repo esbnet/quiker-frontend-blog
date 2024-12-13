@@ -1,18 +1,8 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { DeletePost } from "./post-delete";
 
-interface DeletePostPageProps {
-	params: {
-		postId: string;
-	};
-}
-
-export default function PostActions({ params }: DeletePostPageProps) {
-	const { postId } = params;
-
+export function PostActions(postId: string) {
 	const router = useRouter();
 	return (
 		<div className="flex gap-2">

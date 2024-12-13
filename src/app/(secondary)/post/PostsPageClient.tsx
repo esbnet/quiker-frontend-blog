@@ -2,20 +2,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/AuthContext";
-import type { PostProps } from "@/types/types";
+import { useUser } from "@/context/user-context";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa";
 import BreakNews from "./break-news";
 import { PostsList } from "./posts-list";
 
-interface PostsPageClientProps {
-	initialPosts: PostProps[];
-}
-
-export default function PostsPageClient({
-	initialPosts,
-}: PostsPageClientProps) {
+export default function PostsPageClient_old() {
 	const { user } = useUser();
 	const router = useRouter();
 
@@ -41,7 +34,7 @@ export default function PostsPageClient({
 			<h2 className="font-bold text-3xl">Destaque do dia</h2>
 			<BreakNews />
 			<h2 className="font-bold text-3xl">Mais recentes</h2>
-			<PostsList initialPosts={initialPosts} />
+			<PostsList />
 		</section>
 	);
 }
