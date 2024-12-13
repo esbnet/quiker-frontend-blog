@@ -1,58 +1,26 @@
-"use client";
 // post/posts-list.tsx
+"use client";
 
 import { Anton } from "next/font/google";
-
-import type { PostProps } from "@/types/types";
 import Image, { type StaticImageData } from "next/image";
 import { BiDislike, BiLike } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
 
-import { getPosts } from "@/services/get-posts";
+import { usePost } from "@/context/post-context";
+import type { PostProps } from "@/types/post-type";
 import { FormattedDate } from "@/utils/format-date";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
-interface PostListProps {
-	initialPosts: PostProps[];
-}
-
-export function PostsList({ initialPosts }: PostListProps) {
-	const [posts, setPosts] = useState<PostProps[]>(initialPosts);
+export function PostsList() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
-	useEffect(() => {
-		fetchPosts(); // Primeira chamada
+	const { posts, fetchPosts } = usePost();
 
-		// Recarrega quando a página voltar a ficar visível
-		document.addEventListener("visibilitychange", () => {
-			if (document.visibilityState === "visible") {
-				fetchPosts();
-			}
-		});
-
-		// Atualiza a cada 60 segundos
-		const interval = setInterval(fetchPosts, 60000);
-
-		// Cleanup: remove o intervalo quando o componente desmonta
-		return () => clearInterval(interval);
-	}, []);
-
-	const fetchPosts = async () => {
-		try {
-			setIsLoading(true);
-			setError(null);
-			const newPosts = await getPosts();
-			setPosts(newPosts);
-		} catch (err) {
-			setError("Erro ao carregar posts");
-		} finally {
-			setIsLoading(false);
-		}
-	};
+	fetchPosts();
 
 	if (isLoading) return <div>Carregando...</div>;
 	if (error) return <div className="text-red-500">{error}</div>;

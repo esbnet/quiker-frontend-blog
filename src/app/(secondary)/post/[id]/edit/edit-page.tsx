@@ -11,8 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { useUser } from "@/context/AuthContext";
-import type { PostProps, PostUpdateProps } from "@/types/types";
+import { useUser } from "@/context/user-context";
+import type { PostProps, PostUpdateProps } from "@/types/post-type";
 import { redirect, useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@/context/AuthContext";
+import { useUser } from "@/context/user-context";
 import { Anton } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

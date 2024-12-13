@@ -1,13 +1,12 @@
-// post/PostsPageClient.tsx
+// post/posts-page-client.tsx
 "use client";
 
-import type { PostProps } from "@/types/types";
-import { Post } from "./post";
-
 interface PostsPageClientProps {
-	initialPost: PostProps;
+	initialPost: string;
 }
 
-export default function PostPageClient({ initialPost }: PostsPageClientProps) {
-	return <Post initialPost={initialPost} />;
+export default function PostPageClient___({
+	initialPost,
+}: PostsPageClientProps) {
+	return <div>asdf</div>;
 }

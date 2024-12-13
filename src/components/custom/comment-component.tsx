@@ -3,7 +3,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useUser } from "@/context/AuthContext";
+import { useUser } from "@/context/user-context";
 import { CommentDialog } from "./comment-dialog";
 
 interface CommentProps {

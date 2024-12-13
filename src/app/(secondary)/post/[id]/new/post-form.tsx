@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 
-import { useUser } from "@/context/AuthContext";
+import { useUser } from "@/context/user-context";
 import { useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
 import { TiCancelOutline } from "react-icons/ti";

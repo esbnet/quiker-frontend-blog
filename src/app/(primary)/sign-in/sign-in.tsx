@@ -12,7 +12,7 @@ import { FaHome, FaUser } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUser } from "@/context/AuthContext";
+import { useUser } from "@/context/user-context";
 import { api } from "@/lib/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";

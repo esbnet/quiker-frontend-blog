@@ -1,4 +1,4 @@
-import type { AuthorProps } from "../../types/types";
+import type { AuthorProps } from "../../types/comment-type";
 
 export class AuthorController {
 	private authors: AuthorProps[] = [];

@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/AuthContext";
+import { useUser } from "@/context/user-context";
 import { api } from "@/lib/api";
 import axios from "axios";
 import { Trash2 } from "lucide-react";

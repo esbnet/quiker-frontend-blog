@@ -1,4 +1,4 @@
-import type { AuthorProps, PostProps } from "@/types/types";
+import type { AuthorProps, PostProps } from "@/types/comment-type";
 
 import { AuthorController } from "@/controller/posts/author-controller";
 import { PostController } from "@/controller/posts/post-controller";

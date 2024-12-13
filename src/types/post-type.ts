@@ -1,12 +1,6 @@
-// types/index.ts
-export type AuthorProps = {
-	id: string;
-	name: string;
-	email: string;
-	password: string;
-	createdAt: string;
-	avatar: string;
-};
+import type { Author } from "next/dist/lib/metadata/types/metadata-types";
+import type { AuthorProps } from "./author-type";
+import type { CommentProps } from "./comment-type";
 
 export type PostProps = {
 	id: string;
@@ -33,15 +27,6 @@ export type PostNewProps = {
 	comments?: CommentProps[];
 };
 
-export type CommentProps = {
-	id: string;
-	user: AuthorProps;
-	postId: PostProps;
-	description: string;
-	createdAt: string;
-	removed: boolean;
-};
-
 export type PostUpdateProps = {
 	id: string;
 	title: string;
@@ -49,3 +34,17 @@ export type PostUpdateProps = {
 	imageUrl: string;
 	userId: string;
 };
+
+export interface Posta {
+	id: string;
+	title: string;
+	description: string;
+	imageUrl: string;
+	category: string;
+	createdAt: string;
+	author: Author;
+}
+
+export interface PostResponse {
+	data: PostProps[];
+}
