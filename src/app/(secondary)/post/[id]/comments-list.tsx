@@ -1,11 +1,11 @@
 "use client";
 
+import { format, formatDistanceToNow } from "date-fns";
 import { FaTrash, FaUser } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/user-context";
 import type { CommentProps } from "@/types/comment-type";
-import { formatDistanceToNow } from "date-fns";
 import { ptBR as locale } from "date-fns/locale";
 import { CiCircleRemove } from "react-icons/ci";
 import { removeComment } from "../../../../services/comment-remove";
@@ -15,7 +15,10 @@ interface CommentsListProps {
 	postAuthorId: string;
 }
 
-export function CommentsList({ comments, postAuthorId }: CommentsListProps) {
+export default function CommentsList({
+	comments,
+	postAuthorId,
+}: CommentsListProps) {
 	const { user } = useUser();
 
 	const commentsWithoutRemoved = comments.filter((comment) => !comment.removed);
@@ -36,7 +39,7 @@ export function CommentsList({ comments, postAuthorId }: CommentsListProps) {
 							<div className={"bg-slate-600/20 p-4 rounded-full "}>
 								<p className="font-bold text-[0.6rem] translucent">
 									{comment.user.name}
-									{/* <span>{format(new Date(comment.createdAt), "MMM-yyyy")}</span> */}
+									<span>{format(new Date(comment.createdAt), "MMM-yyyy")}</span>
 								</p>
 								<p>{comment.description}</p>
 							</div>

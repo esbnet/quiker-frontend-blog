@@ -1,4 +1,3 @@
-import Footer from "@/components/custom/footer";
 import Header from "@/components/custom/header";
 import { metadata } from "../layout";
 
@@ -13,7 +12,7 @@ export default function HomeLayout({
 		<div className="flex flex-col">
 			<Header />
 			{children}
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }

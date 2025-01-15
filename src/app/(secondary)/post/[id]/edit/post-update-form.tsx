@@ -11,7 +11,7 @@ const postSchema = z.object({
 	title: z
 		.string()
 		.min(3, { message: "Título deve ter no mínimo 3 caracteres" }),
-	description: z
+	content: z
 		.string()
 		.min(10, { message: "Conteúdo deve ter no mínimo 10 caracteres" }),
 	imageUrl: z.string().url({ message: "Caminha da imagem inválida" }),
@@ -35,8 +35,8 @@ export default function PostForm({
 		resolver: zodResolver(postSchema),
 		defaultValues: {
 			title: initialData?.title || "",
-			description: initialData?.description || "",
-			imageUrl: initialData?.description || "",
+			content: initialData?.content || "",
+			imageUrl: initialData?.content || "",
 		},
 	});
 
@@ -57,8 +57,8 @@ export default function PostForm({
 			</div>
 
 			<div>
-				<textarea {...register("description")} placeholder="Conteúdo do Post" />
-				{errors.description && <span>{errors.description.message}</span>}
+				<textarea {...register("content")} placeholder="Conteúdo do Post" />
+				{errors.content && <span>{errors.content.message}</span>}
 			</div>
 
 			<button type="submit" disabled={isSubmitting}>

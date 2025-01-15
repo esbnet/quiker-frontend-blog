@@ -12,7 +12,7 @@ type AuthorProps = {
 type PostProps = {
 	id: string;
 	title: string;
-	description: string;
+	content: string;
 	imageUrl: string;
 	category: string;
 	createdAt: string;

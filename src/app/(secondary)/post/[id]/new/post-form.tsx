@@ -22,7 +22,7 @@ const schema = z.object({
 		.string()
 		.min(3, { message: "O título é obrigatório e no mínimo 3 caracteres." })
 		.max(150, { message: "O título é obrigatório e no máxio 150 caracteres" }),
-	description: z
+	content: z
 		.string()
 		.min(50, { message: "A descrição deve conter no mínimo 50 caracteres." })
 		.max(2048, {
@@ -86,15 +86,15 @@ export default function PostForm() {
 					)}
 				</div>
 				<div>
-					<label htmlFor="description">Artigo</label>
+					<label htmlFor="content">Artigo</label>
 					{/* <Editor /> */}
 					<Textarea
 						rows={10}
 						placeholder="descrição"
-						{...register("description")}
+						{...register("content")}
 					/>
-					{errors.description && (
-						<p className="text-red-500 text-sm">{errors.description.message}</p>
+					{errors.content && (
+						<p className="text-red-500 text-sm">{errors.content.message}</p>
 					)}
 				</div>
 				<div>

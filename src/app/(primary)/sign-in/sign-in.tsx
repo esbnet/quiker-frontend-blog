@@ -56,12 +56,15 @@ export default function SignIn() {
 				password,
 			});
 
-			const { user } = response.data;
+			if (!response.data) {
+				throw new Error("Erro ao fazer login");
+			}
 
+			const { user } = response.data;
 			setUser(user);
 
 			toast.success("Que bom te ver novamente!", {
-				description: `Somos gratos por sua contribuição ${user.name}.`,
+				description: `Somos gratos por sua contribuição ${user?.name}.`,
 				icon: <FaUser />,
 			});
 
@@ -137,7 +140,7 @@ export default function SignIn() {
 					<Button
 						variant={"outline"}
 						onClick={() => redirect("/")}
-						className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+						className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 hover:scale-105 object-cover"
 						disabled={isSubmit}
 					>
 						<FaHome size={20} />

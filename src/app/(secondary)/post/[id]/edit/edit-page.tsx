@@ -22,12 +22,12 @@ const schema = z.object({
 	title: z
 		.string()
 		.min(3, { message: "O título é obrigatório e no mínimo 3 caracteres." })
-		.max(150, { message: "O título é obrigatório e no máxio 150 caracteres" }),
-	description: z
+		.max(150, { message: "O título é obrigatório e no máximo 150 caracteres" }),
+	content: z
 		.string()
 		.min(50, { message: "A descrição deve conter no mínimo 50 caracteres." })
 		.max(2048, {
-			message: "A descrição deve conter no máxio 2048 caracteres.",
+			message: "A descrição deve conter no máximo 2048 caracteres.",
 		}),
 	imageUrl: z
 		.string()
@@ -57,7 +57,7 @@ export function EditPostForm({ initialPost }: PostListProps) {
 		resolver: zodResolver(schema),
 		defaultValues: {
 			title: initialPost?.title || "",
-			description: initialPost?.description || "",
+			content: initialPost?.content || "",
 			imageUrl: initialPost?.imageUrl || "",
 		},
 	});
@@ -70,7 +70,7 @@ export function EditPostForm({ initialPost }: PostListProps) {
 		const postData = {
 			id: initialPost.id,
 			title: data.title,
-			description: data.description,
+			content: data.content,
 			imageUrl: data.imageUrl,
 			userId: user.id,
 		} as PostUpdateProps;
@@ -99,15 +99,15 @@ export function EditPostForm({ initialPost }: PostListProps) {
 					)}
 				</div>
 				<div>
-					<label htmlFor="description">Artigo</label>
+					<label htmlFor="content">Artigo</label>
 					{/* <Editor /> */}
 					<Textarea
 						rows={10}
 						placeholder="descrição"
-						{...register("description")}
+						{...register("content")}
 					/>
-					{errors.description && (
-						<p className="text-red-500 text-sm">{errors.description.message}</p>
+					{errors.content && (
+						<p className="text-red-500 text-sm">{errors.content.message}</p>
 					)}
 				</div>
 				<div>

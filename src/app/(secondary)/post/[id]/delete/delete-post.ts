@@ -3,7 +3,7 @@ import { api } from "@/lib/api";
 interface CommentProps {
 	authorId: string;
 	postId: string;
-	description: string;
+	content: string;
 }
 
 export async function deletePost(id: string) {

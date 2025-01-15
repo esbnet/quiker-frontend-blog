@@ -1,5 +1,5 @@
 // post/posts-list.tsx
-"use client";
+// "use client";
 
 import { Anton } from "next/font/google";
 import Image, { type StaticImageData } from "next/image";
@@ -7,25 +7,27 @@ import { BiDislike, BiLike } from "react-icons/bi";
 import { FaRegEye } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
 
-import { usePost } from "@/context/post-context";
+import { getPosts } from "@/services/posts-get";
 import type { PostProps } from "@/types/post-type";
 import { FormattedDate } from "@/utils/format-date";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { useState } from "react";
+
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
 export function PostsList() {
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
-
-	const { posts, fetchPosts } = usePost();
-
-	fetchPosts();
+	const {
+		data: posts,
+		isLoading,
+		isError,
+	} = useQuery({
+		queryKey: ["posts"],
+		queryFn: getPosts,
+	});
 
 	if (isLoading) return <div>Carregando...</div>;
-	if (error) return <div className="text-red-500">{error}</div>;
-
-	if (posts.length === 0) {
+	if (isError) return <div className="text-red-500">{isError}</div>;
+	if (!posts) {
 		return (
 			<div className="text-slate-600 dark:text-slate-300">
 				Nenhum post registrado...
@@ -36,13 +38,15 @@ export function PostsList() {
 	return (
 		<section className="flex gap-6">
 			<div className="bg-slate-300/50 dark:bg-slate-600/20 shadow-lg p-6 rounded-md w-full">
-				{posts.map((post: PostProps) => {
+				{posts.map((post: PostProps, index: number) => {
+					if (index === 0) return;
+
 					return (
 						<div
 							key={post.id}
 							rel="noopener noreferrer"
 							title={post.title}
-							className="flex sm:flex-row flex-col gap-4 hover:bg-slate-300/60 dark:hover:bg-slate-600/50 mb-4 p-4 rounded-md w-full transform transition-transform duration-300 object-cover hover:scale-105 hover:shadow-xl"
+							className="flex sm:flex-row flex-col gap-4 hover:bg-slate-300/60 dark:hover:bg-slate-600/50 hover:shadow-xl dark:hover:shadow-slate-950 mb-4 p-4 rounded-md w-full transform transition-transform duration-300 object-cover"
 						>
 							<div className="flex flex-col gap-2 rounded-md overflow-hidden">
 								<Image
@@ -50,7 +54,7 @@ export function PostsList() {
 									alt=""
 									width={300}
 									height={300}
-									className="transform transition-transform duration-300 object-cover hover:scale-105 shadow-lg rounded-md w-full h-64"
+									className="shadow-lg rounded-md w-full h-64 transform transition-transform duration-300 hover:scale-105 object-cover"
 								/>
 							</div>
 							<div className="flex flex-col flex-1">
@@ -66,14 +70,13 @@ export function PostsList() {
 									<div className="flex flex-col items-end font-medium text-xs">
 										<span>
 											<FormattedDate date={new Date(post.createdAt)} />
-											{/* {format(post.createdAt, "dd-MMM-yyyy").toUpperCase()} */}
 										</span>
-										<span>
-											{/* {formatDistanceToNow(post.createdAt, { locale })} */}
-										</span>
+										{/* <span>
+											{formatDistanceToNow(post.createdAt, { locale })}
+										</span> */}
 									</div>
 								</h2>
-								<p className="flex-1 line-clamp-5">{post.description}</p>
+								<p className="flex-1 line-clamp-5">{post.content}</p>
 								<div className="flex justify-between gap-2">
 									<div className="text-slate-600">
 										<span className="flex items-center gap-2">

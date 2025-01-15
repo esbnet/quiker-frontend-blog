@@ -1,14 +1,13 @@
 "use client";
 
-import BreakNews from "./post/break-news";
 import { Button } from "@/components/ui/button";
-import { FaPlus } from "react-icons/fa";
-import { PostsList } from "./post/posts-list";
-import { useRouter } from "next/navigation";
 import { useUser } from "@/context/user-context";
+import { useRouter } from "next/navigation";
+import { FaPlus } from "react-icons/fa";
+import BreakNews from "./post/break-news";
+import { PostsList } from "./post/posts-list";
 
-export default async function PostsPage() {
-	// return <PostsPageClient/>;
+export default function PostsPage() {
 	const { user } = useUser();
 	const router = useRouter();
 
@@ -16,12 +15,12 @@ export default async function PostsPage() {
 		<section className="flex flex-col gap-6 text-slate-600 dark:text-slate-300">
 			<div className="flex justify-end">
 				<div>
-					{user?.name ? (
+					{user ? (
 						<Button
 							title="Novo post"
 							variant={"ghost"}
 							onClick={() => router.push("/post/0/new")}
-							className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 animate-pulse"
+							className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all animate-pulse duration-300 hover:scale-105 object-cover"
 						>
 							<FaPlus size={24} />
 						</Button>

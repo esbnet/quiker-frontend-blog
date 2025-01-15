@@ -204,7 +204,7 @@ export default function SignUp() {
 						variant={"outline"}
 						onClick={() => redirect("/")}
 						disabled={isSubmit}
-						className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105"
+						className="hover:bg-indigo-600 rounded-full hover:font-bold hover:text-slate-50 transform transition-all duration-300 hover:scale-105 object-cover"
 					>
 						<FaHome size={20} />
 					</Button>

@@ -69,7 +69,7 @@ export function DeletePost({ postId, onDelete }: DeletePostProps) {
 					<Button
 						variant="destructive"
 						size="sm"
-						className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 object-cover hover:scale-105 justify-center items-center"
+						className="justify-center items-center hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 hover:scale-105 object-cover"
 					>
 						<Trash2 className="" size={18} />
 					</Button>

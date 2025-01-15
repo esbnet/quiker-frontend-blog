@@ -5,7 +5,7 @@ interface PostPageProps {
 	params: { id: string };
 }
 export default async function EditPage({ params }: PostPageProps) {
-	const { id } = await params;
+	const { id } = params;
 
 	const initialPost = await getPost(id);
 

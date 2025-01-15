@@ -1,3 +1,4 @@
+"use client";
 import {
 	Dialog,
 	DialogContent,
@@ -10,12 +11,13 @@ import { redirect, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUser } from "@/context/user-context";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import { updateUser } from "@/services/user-update";
-import type { AuthorProps } from "@/types/comment-type";
+
+import { useUser } from "@/context/user-context";
+import type { AuthorProps } from "@/types/author-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useState } from "react";

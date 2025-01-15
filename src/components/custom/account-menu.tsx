@@ -1,20 +1,20 @@
 import {
-	Building,
-	ChevronDown,
-	CreditCard,
-	LogOut,
-	Settings,
-} from "lucide-react";
-import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import {
+	Building,
+	ChevronDown,
+	CreditCard,
+	LogOut,
+	Settings,
+} from "lucide-react";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 export function AccountMenu() {
 	return (
@@ -60,4 +60,3 @@ export function AccountMenu() {
 		</DropdownMenu>
 	);
 }
-

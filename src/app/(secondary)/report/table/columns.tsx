@@ -15,7 +15,7 @@ type Author = {
 export type Post = {
 	id: string;
 	title: string;
-	description: string;
+	content: string;
 	imageUrl: string;
 	category: string;
 	createdAt: string;
