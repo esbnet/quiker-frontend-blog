@@ -12,6 +12,7 @@ import { saveComment } from "@/services/comment-save";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdSend } from "react-icons/md";
+import { TfiCommentAlt } from "react-icons/tfi";
 import { toast } from "sonner";
 import { Textarea } from "../ui/textarea";
 
@@ -53,7 +54,7 @@ export function CommentDialog({ authorId, postId }: CommentProps) {
 					variant={"ghost"}
 					className="flex items-center hover:text-indigo-600 transition-all animate-pulse hover:animate-bounce"
 				>
-					Comentar
+					<TfiCommentAlt size={18} />
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="flex flex-col justify-between items-center gap-8 border-slate-600 dark:border-slate-800 bg-slate-800/90 dark:bg-slate-800/80 shadow-xl p-8 border rounded-xl w-full sm:max-w-[480px] text-slate-200">

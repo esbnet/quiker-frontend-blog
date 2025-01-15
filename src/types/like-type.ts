@@ -4,6 +4,7 @@ export type LikeType = {
 	id?: string;
 	authorId: string;
 	postId: string;
-	like: boolean;
+	like?: boolean;
+	dislike?: boolean;
 	createdAt: string;
 };

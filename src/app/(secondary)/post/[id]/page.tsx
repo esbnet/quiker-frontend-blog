@@ -6,8 +6,8 @@ import { BiDislike, BiLike } from "react-icons/bi";
 
 import ButtonPostEdit from "@/components/custom/button-post-edit";
 import { CommentComponent } from "@/components/custom/comment-component";
+import { ToggleDisLike } from "@/components/custom/toggle-dislike";
 import { ToggleLike } from "@/components/custom/toggle-like";
-import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/user-context";
 import { getPost } from "@/services/post-get";
 import { useQuery } from "@tanstack/react-query";
@@ -112,14 +112,9 @@ export default function PostPage() {
 			</div>
 			<p>{post.content}</p>
 			{user !== null ? (
-				<div className="flex self-end">
+				<div className="flex gap-4 self-end">
 					<ToggleLike postId={post.id} authorId={user.id} />
-					<Button
-						variant={"ghost"}
-						className="flex items-center hover:text-indigo-600 transition-all animate-pulse hover:animate-bounce"
-					>
-						<BiDislike className="w-6 h-6" />
-					</Button>
+					<ToggleDisLike postId={post.id} authorId={user.id} />
 					<CommentComponent postId={post.id} />
 				</div>
 			) : (
