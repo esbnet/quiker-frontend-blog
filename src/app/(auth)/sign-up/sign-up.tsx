@@ -1,5 +1,6 @@
 "use client";
 
+import { FaHome, FaUser } from "react-icons/fa";
 import {
 	Form,
 	FormControl,
@@ -8,25 +9,21 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { redirect, useRouter } from "next/navigation";
-import { FaHome, FaUser } from "react-icons/fa";
 
+import type { AxiosError } from "axios";
 import { Button } from "@/components/ui/button";
+import { ImSpinner9 } from "react-icons/im";
 import { Input } from "@/components/ui/input";
 import { api } from "@/lib/api";
-import { zodResolver } from "@hookform/resolvers/zod";
-import type { AxiosError } from "axios";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { ImSpinner9 } from "react-icons/im";
 import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
 import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function SignUp() {
 	const [isSubmit, setIsSubmit] = useState(false);
 	const router = useRouter();
-	// const {
-	// 	formState: { errors },
-	// } = useForm<FormData>();
 
 	const formSchema = z
 		.object({
@@ -77,7 +74,6 @@ export default function SignUp() {
 			toast.success("Bem vindo e boa leitura!", {
 				description: message,
 				duration: 5000,
-				position: "top-right",
 				icon: <FaUser />,
 
 				style: {
@@ -88,7 +84,7 @@ export default function SignUp() {
 			});
 
 			setIsSubmit(false);
-			router.push("/");
+			router.back();
 		} catch (e) {
 			const msg = e as AxiosError<{ error: string }>;
 			const error = msg.response?.data.error;
@@ -100,12 +96,6 @@ export default function SignUp() {
 			toast.warning(error, {
 				description: "Email já cadastrado",
 				icon: <FaUser />,
-
-				// style: {
-				// 	backgroundColor: "#A52A2AC9",
-				// 	color: "white",
-				// 	fontWeight: "bold",
-				// },
 			});
 		}
 	}

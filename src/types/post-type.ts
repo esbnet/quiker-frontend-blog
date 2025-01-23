@@ -8,8 +8,8 @@ export type PostProps = {
 	content: string;
 	imageUrl: string;
 	views: number;
-	likesCount: number;
-	dislikesCount: number;
+	likes: number;
+	dislikes: number;
 	createdAt: string;
 	comments?: CommentProps[];
 };
@@ -20,10 +20,10 @@ export type PostNewProps = {
 	title: string;
 	content: string;
 	imageUrl: string;
-	views: number;
-	likesCount: number;
-	dislikesCount: number;
-	commentsCount: CommentProps[];
+	// views: number;
+	// likes: number;
+	// dislikes: number;
+	// commentsCount: CommentProps[];
 };
 
 export type PostUpdateProps = {
@@ -33,16 +33,6 @@ export type PostUpdateProps = {
 	imageUrl: string;
 	userId: string;
 };
-
-// export interface Posta {
-// 	id: string;
-// 	title: string;
-// 	content: string;
-// 	imageUrl: string;
-// 	category: string;
-// 	createdAt: string;
-// 	author: AuthorProps;
-// }
 
 export interface PostResponse {
 	data: PostProps[];

@@ -1,17 +1,18 @@
 // post/posts-list.tsx
 // "use client";
 
-import { Anton } from "next/font/google";
-import Image, { type StaticImageData } from "next/image";
 import { BiDislike, BiLike } from "react-icons/bi";
-import { FaRegEye } from "react-icons/fa";
-import { MdReadMore } from "react-icons/md";
 
 import { getPosts } from "@/services/posts-get";
 import type { PostProps } from "@/types/post-type";
-import { FormattedDate } from "@/utils/format-date";
 import { useQuery } from "@tanstack/react-query";
+import { formatDistanceToNow } from "date-fns";
+import { ptBR as locale } from "date-fns/locale";
+import { Anton } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
+import { FaRegEye } from "react-icons/fa";
+import { MdReadMore } from "react-icons/md";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
@@ -48,15 +49,16 @@ export function PostsList() {
 							title={post.title}
 							className="flex sm:flex-row flex-col gap-4 hover:bg-slate-300/60 dark:hover:bg-slate-600/50 hover:shadow-xl dark:hover:shadow-slate-950 mb-4 p-4 rounded-md w-full transform transition-transform duration-300 object-cover"
 						>
-							<div className="flex flex-col gap-2 rounded-md overflow-hidden">
+							<div className="flex sm:flex flex-col gap-2 rounded-md overflow-hidden">
 								<Image
-									src={post.imageUrl as unknown as StaticImageData}
+									src={post?.imageUrl ?? ""}
 									alt=""
-									width={300}
-									height={300}
-									className="shadow-lg rounded-md w-full h-64 transform transition-transform duration-300 hover:scale-105 object-cover"
+									width={350}
+									height={200}
+									className="rounded-md h-72 transform transition-transform duration-300 hover:scale-105 object-cover"
 								/>
 							</div>
+
 							<div className="flex flex-col flex-1">
 								<h2
 									className={`${titleMain.className} font-bold text-2xl capitalize`}
@@ -68,12 +70,12 @@ export function PostsList() {
 										{post.author.name.toUpperCase()}
 									</span>
 									<div className="flex flex-col items-end font-medium text-xs">
-										<span>
-											<FormattedDate date={new Date(post.createdAt)} />
-										</span>
 										{/* <span>
-											{formatDistanceToNow(post.createdAt, { locale })}
+											<FormattedDate date={new Date(post.createdAt)} />
 										</span> */}
+										<span>
+											{formatDistanceToNow(post.createdAt, { locale })}
+										</span>
 									</div>
 								</h2>
 								<p className="flex-1 line-clamp-5">{post.content}</p>
@@ -85,12 +87,12 @@ export function PostsList() {
 										</span>
 										<span className="flex items-center gap-2">
 											<BiLike className="w-4 h-4" />
-											<span className="text-xs">{post.likes}</span>
+											<span className="text-xs">{post.likesCount}</span>
 										</span>
 
 										<span className="flex items-center gap-2">
 											<BiDislike className="w-4 h-4" />
-											<span className="text-xs">{post.dislikes}</span>
+											<span className="text-xs">{post.dislikesCount}</span>
 										</span>
 									</div>
 									<Link href={`/post/${post.id}`} className="flex items-end">

@@ -34,6 +34,7 @@ export default function RootLayout({
 				className={`${jura.className} justify-center px-2 antialiased h-screen`}
 			>
 				<Toaster
+					position="top-right"
 					toastOptions={{
 						duration: 4000,
 						classNames: {
@@ -43,7 +44,7 @@ export default function RootLayout({
 							cancelButton: "bg-orange-400",
 							closeButton: "bg-lime-400",
 							success: "bg-green-400/50",
-							info: "bg-blue-400-50",
+							info: "bg-blue-400/50",
 							warning: "bg-yellow-400/50",
 							error: "bg-red-400/50",
 						},

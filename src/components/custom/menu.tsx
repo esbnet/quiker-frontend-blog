@@ -1,6 +1,6 @@
 "use client";
 
-import { Profile } from "@/app/(primary)/sign-up/profile-component";
+import { Profile } from "@/app/(auth)/sign-up/profile-component";
 import { useUser } from "@/context/user-context";
 import { useRouter } from "next/navigation";
 import { FaHome } from "react-icons/fa";

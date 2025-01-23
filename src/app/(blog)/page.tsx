@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/user-context";
-import { useRouter } from "next/navigation";
-import { FaPlus } from "react-icons/fa";
 import BreakNews from "./post/break-news";
+import { Button } from "@/components/ui/button";
+import { FaPlus } from "react-icons/fa";
 import { PostsList } from "./post/posts-list";
+import { useRouter } from "next/navigation";
+import { useUser } from "@/context/user-context";
 
 export default function PostsPage() {
 	const { user } = useUser();
@@ -17,10 +17,10 @@ export default function PostsPage() {
 				<div>
 					{user ? (
 						<Button
-							title="Novo post"
+							title="Novo post 📰 "
 							variant={"ghost"}
 							onClick={() => router.push("/post/0/new")}
-							className="hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all animate-pulse duration-300 hover:scale-105 object-cover"
+							className="flex items-center hover:text-indigo-600 transform transition-transform duration-300 cursor-pointer hover:scale-125 object-cover"
 						>
 							<FaPlus size={24} />
 						</Button>

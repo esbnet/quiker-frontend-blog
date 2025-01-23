@@ -1,5 +1,6 @@
 "use client";
 
+import { FaHome, FaUser } from "react-icons/fa";
 import {
 	Form,
 	FormControl,
@@ -8,18 +9,17 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { redirect, useRouter } from "next/navigation";
-import { FaHome, FaUser } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useUser } from "@/context/user-context";
-import { api } from "@/lib/api";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { ImSpinner9 } from "react-icons/im";
+import { Input } from "@/components/ui/input";
+import { api } from "@/lib/api";
 import { toast } from "sonner";
+import { useForm } from "react-hook-form";
+import { useState } from "react";
+import { useUser } from "@/context/user-context";
 import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function SignIn() {
 	const [isSubmit, setIsSubmit] = useState(false);
@@ -68,7 +68,7 @@ export default function SignIn() {
 				icon: <FaUser />,
 			});
 
-			router.push("/");
+			router.back();
 
 			setIsSubmit(false);
 		} catch (error) {

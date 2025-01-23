@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/alert-dialog";
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/user-context";
+import { Trash2 } from "lucide-react";
 import { api } from "@/lib/api";
 import axios from "axios";
-import { Trash2 } from "lucide-react";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
+import { useUser } from "@/context/user-context";
 
 interface DeletePostProps {
 	postId: string;
@@ -67,9 +67,10 @@ export function DeletePost({ postId, onDelete }: DeletePostProps) {
 			<AlertDialog>
 				<AlertDialogTrigger asChild>
 					<Button
+						title="Excluir post 🗑️"
 						variant="destructive"
 						size="sm"
-						className="justify-center items-center hover:bg-indigo-600 rounded-full w-10 h-10 hover:font-bold text-slate-600 hover:text-slate-50 transform transition-all duration-300 hover:scale-105 object-cover"
+						className="flex items-center hover:text-indigo-600 transform transition-transform duration-300 cursor-pointer hover:scale-125"
 					>
 						<Trash2 className="" size={18} />
 					</Button>

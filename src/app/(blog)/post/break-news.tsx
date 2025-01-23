@@ -1,15 +1,15 @@
 import { BiDislike, BiLike } from "react-icons/bi";
 
-import SkeletonBreakNews from "@/components/custom/skeleton-break-news";
-import { getPosts } from "@/services/posts-get";
-import { useQuery } from "@tanstack/react-query";
-import { formatDistanceToNow } from "date-fns";
-import { ptBR as locale } from "date-fns/locale";
 import { Anton } from "next/font/google";
+import { FaRegEye } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import { FaRegEye } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
+import SkeletonBreakNews from "@/components/custom/skeleton-break-news";
+import { formatDistanceToNow } from "date-fns";
+import { getPosts } from "@/services/posts-get";
+import { ptBR as locale } from "date-fns/locale";
+import { useQuery } from "@tanstack/react-query";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
@@ -27,6 +27,7 @@ export default function BreakNews() {
 
 	if (isError) return <div>Error</div>;
 
+	// get the first post to show in the break news
 	const post = posts?.[0];
 
 	return (
@@ -64,16 +65,16 @@ export default function BreakNews() {
 						<div className="flex flex-row gap-2 text-slate-600">
 							<span className="flex items-center gap-2">
 								<FaRegEye className="w-4 h-4" />
-								<span className="text-xs">{25}</span>
+								<span className="text-xs">{post?.views}</span>
 							</span>
 							<span className="flex items-center gap-2">
 								<BiLike className="w-4 h-4" />
-								<span className="text-xs">{7}</span>
+								<span className="text-xs">{post?.likes}</span>
 							</span>
 
 							<span className="flex items-center gap-2">
 								<BiDislike className="w-4 h-4" />
-								<span className="text-xs">{4}</span>
+								<span className="text-xs">{post?.dislikes}</span>
 							</span>
 						</div>
 					</div>

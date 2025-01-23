@@ -1,23 +1,23 @@
 // post/posts.tsx
 "use client";
 
-import { format, formatDistanceToNow } from "date-fns";
 import { BiDislike, BiLike } from "react-icons/bi";
+import { format, formatDistanceToNow } from "date-fns";
 
+import { Anton } from "next/font/google";
 import ButtonPostEdit from "@/components/custom/button-post-edit";
 import { CommentComponent } from "@/components/custom/comment-component";
-import { ToggleDisLike } from "@/components/custom/toggle-dislike";
-import { ToggleLike } from "@/components/custom/toggle-like";
-import { useUser } from "@/context/user-context";
-import { getPost } from "@/services/post-get";
-import { useQuery } from "@tanstack/react-query";
-import { ptBR as locale } from "date-fns/locale";
-import { Anton } from "next/font/google";
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { FaRegEye } from "react-icons/fa";
 import CommentsList from "./comments-list";
 import { DeletePost } from "./delete/post-delete";
+import { FaRegEye } from "react-icons/fa";
+import Image from "next/image";
+import { ToggleDisLike } from "@/components/custom/toggle-dislike";
+import { ToggleLike } from "@/components/custom/toggle-like";
+import { getPost } from "@/services/post-get";
+import { ptBR as locale } from "date-fns/locale";
+import { useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import { useUser } from "@/context/user-context";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
@@ -45,18 +45,17 @@ export default function PostPage() {
 	}
 
 	return (
-		<section className="flex flex-col gap-6 text-slate-600 dark:text-slate-300">
+		<section className="flex flex-col gap-6 h-[75vh] text-slate-600 dark:text-slate-300">
 			<h1 className={`${titleMain.className} font-extrabold text-5xl`}>
 				{post.title}
 			</h1>
-			<p>{user?.name || "Usuário"}</p>
 
 			<div className="flex gap-4">
 				<div className="flex flex-col gap-2">
 					<div className="flex sm:flex flex-col gap-2 rounded-md overflow-hidden">
 						<Image
 							src={post.imageUrl}
-							alt=""
+							alt="Imagem que representa o post"
 							width={500}
 							height={200}
 							className="rounded-md h-72 transform transition-transform duration-300 hover:scale-105 object-cover"
@@ -69,13 +68,11 @@ export default function PostPage() {
 						</span>
 						<span className="flex items-center gap-2">
 							<BiLike className="w-4 h-4" />
-							<span className="text-slate-500 text-xs">{post.likesCount}</span>
+							<span className="text-slate-500 text-xs">{post.likes}</span>
 						</span>
 						<span className="flex items-center gap-2">
 							<BiDislike className="w-4 h-4" />
-							<span className="text-slate-500 text-xs">
-								{post.dislikesCount}
-							</span>
+							<span className="text-slate-500 text-xs">{post.dislikes}</span>
 						</span>
 					</div>
 				</div>

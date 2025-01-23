@@ -1,12 +1,12 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { BiLike, BiSolidLike } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
+import type { LikeType } from "@/types/like-type";
 import { api } from "@/lib/api";
 import { queryClient } from "@/lib/react-query";
-import type { LikeType } from "@/types/like-type";
 
 type LikeProps = {
 	authorId: string;
@@ -83,7 +83,10 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 	if (isError) return <div>Erro ao carregar like</div>;
 
 	return (
-		<span className="flex items-center hover:text-indigo-600 transition-all animate-pulse hover:animate-bounce cursor-pointer">
+		<span
+			title="Gostei desse post. 👏 "
+			className="flex items-center hover:text-indigo-600 transform transition-transform duration-300 cursor-pointer hover:scale-125"
+		>
 			{liked ? (
 				<BiSolidLike className="w-6 h-6" onClick={handleClick} />
 			) : (

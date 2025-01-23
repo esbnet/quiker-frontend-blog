@@ -12,22 +12,21 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { useUser } from "@/context/user-context";
-import type { PostProps, PostUpdateProps } from "@/types/post-type";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { BiNews } from "react-icons/bi";
-import { MdCancel } from "react-icons/md";
-import { updatePost } from "../../../../../services/post-update";
+import { TiCancelOutline } from "react-icons/ti";
+import { addPost } from "../../../../../services/post-add";
 
 const schema = z.object({
 	title: z
 		.string()
 		.min(3, { message: "O título é obrigatório e no mínimo 3 caracteres." })
-		.max(150, { message: "O título é obrigatório e no máximo 150 caracteres" }),
+		.max(150, { message: "O título é obrigatório e no máxio 150 caracteres" }),
 	content: z
 		.string()
 		.min(50, { message: "A descrição deve conter no mínimo 50 caracteres." })
 		.max(2048, {
-			message: "A descrição deve conter no máximo 2048 caracteres.",
+			message: "A descrição deve conter no máxio 2048 caracteres.",
 		}),
 	imageUrl: z
 		.string()
@@ -37,16 +36,11 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-interface PostListProps {
-	initialPost: PostProps;
-}
-
-export function EditPostForm({ initialPost }: PostListProps) {
+export default function PostForm() {
 	const { user } = useUser();
+	const authorId = user?.id;
 	const route = useRouter();
-
 	const {
-		control,
 		register,
 		handleSubmit,
 		formState: { errors },
@@ -55,40 +49,27 @@ export function EditPostForm({ initialPost }: PostListProps) {
 		mode: "all",
 		reValidateMode: "onChange",
 		resolver: zodResolver(schema),
-		defaultValues: {
-			title: initialPost?.title || "",
-			content: initialPost?.content || "",
-			imageUrl: initialPost?.imageUrl || "",
-		},
 	});
 
-	if (user === null) {
-		return redirect("/sign-in");
-	}
-
-	const handleEditPost: SubmitHandler<FormData> = async (data) => {
-		const postData = {
-			id: initialPost.id,
-			title: data.title,
-			content: data.content,
-			imageUrl: data.imageUrl,
-			userId: user.id,
-		} as PostUpdateProps;
-
+	const handleAddPost: SubmitHandler<FormData> = async (data) => {
+		const post = {
+			authorId: authorId as string,
+			...data,
+		};
 		try {
-			await updatePost(postData);
+			await addPost(post);
+			toast.success("Post criado com sucesso");
 		} catch (error) {
-			toast.error(`Erro ao atualizar o Post: ${error}`);
+			toast.error(`Erro ao criar o Post: ${error}`);
 		}
-
-		toast.success("Post atualizado com sucesso");
+		reset();
 		route.push("/");
 	};
 
 	return (
 		<div className="flex justify-center m-auto w-full h-[72vh]">
 			<form
-				onSubmit={handleSubmit(handleEditPost)}
+				onSubmit={handleSubmit(handleAddPost)}
 				className="flex flex-col gap-4 w-full"
 			>
 				<label htmlFor="title">Título</label>
@@ -131,17 +112,18 @@ export function EditPostForm({ initialPost }: PostListProps) {
 				<div className="flex gap-2">
 					<Button
 						className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+						type="submit"
 						title="Acessar área administrativa"
 					>
 						<BiNews className="mr-2" />
-						Salvar
+						Publicar
 					</Button>
 					<Button
-						className="flex-1 bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
 						onClick={() => route.back()}
-						title="Cancela alterações e retorna ao post"
+						className="flex-1 bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+						title="Acessar área administrativa"
 					>
-						<MdCancel className="mr-2" />
+						<TiCancelOutline className="mr-2" />
 						Cancelar
 					</Button>
 				</div>

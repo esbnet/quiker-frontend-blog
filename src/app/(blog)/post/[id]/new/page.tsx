@@ -1,6 +1,6 @@
 "use client";
 
-import PostForm from "@/app/(secondary)/post/[id]/new/post-form";
+import PostForm from "@/app/(blog)/post/[id]/new/post-form";
 import { useUser } from "@/context/user-context";
 import type { PostProps } from "@/types/post-type";
 import { redirect } from "next/navigation";
