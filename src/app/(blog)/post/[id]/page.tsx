@@ -1,23 +1,23 @@
 // post/posts.tsx
 "use client";
 
-import { BiDislike, BiLike } from "react-icons/bi";
 import { format, formatDistanceToNow } from "date-fns";
+import { BiDislike, BiLike } from "react-icons/bi";
 
-import { Anton } from "next/font/google";
 import ButtonPostEdit from "@/components/custom/button-post-edit";
 import { CommentComponent } from "@/components/custom/comment-component";
-import CommentsList from "./comments-list";
-import { DeletePost } from "./delete/post-delete";
-import { FaRegEye } from "react-icons/fa";
-import Image from "next/image";
 import { ToggleDisLike } from "@/components/custom/toggle-dislike";
 import { ToggleLike } from "@/components/custom/toggle-like";
-import { getPost } from "@/services/post-get";
-import { ptBR as locale } from "date-fns/locale";
-import { useParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { useUser } from "@/context/user-context";
+import { getPost } from "@/services/post-get";
+import { useQuery } from "@tanstack/react-query";
+import { ptBR as locale } from "date-fns/locale";
+import { Anton } from "next/font/google";
+import Image from "next/image";
+import { useParams } from "next/navigation";
+import { FaRegEye } from "react-icons/fa";
+import CommentsList from "./comments-list";
+import { DeletePost } from "./delete/post-delete";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
@@ -107,7 +107,10 @@ export default function PostPage() {
 					)}
 				</div>
 			</div>
-			<p>{post.content}</p>
+			<div>
+				<p>{post.content}</p>
+			</div>
+
 			{user !== null ? (
 				<div className="flex gap-4 self-end">
 					<ToggleLike postId={post.id} authorId={user.id} />
@@ -119,7 +122,7 @@ export default function PostPage() {
 			)}
 
 			{post.comments && post.comments.length > 0 && (
-				<CommentsList comments={post.comments} postAuthorId={post.author.id} />
+				<CommentsList comments={post.comments} postAuthor={post.author} />
 			)}
 		</section>
 	);

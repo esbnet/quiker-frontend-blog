@@ -6,7 +6,7 @@ export type CommentProps = {
 	id: string;
 	user: AuthorProps;
 	postId: string;
-	description: string;
+	content: string;
 	createdAt: string;
 	removed: boolean;
 };

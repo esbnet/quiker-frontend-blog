@@ -87,12 +87,12 @@ export function PostsList() {
 										</span>
 										<span className="flex items-center gap-2">
 											<BiLike className="w-4 h-4" />
-											<span className="text-xs">{post.likesCount}</span>
+											<span className="text-xs">{post.likes}</span>
 										</span>
 
 										<span className="flex items-center gap-2">
 											<BiDislike className="w-4 h-4" />
-											<span className="text-xs">{post.dislikesCount}</span>
+											<span className="text-xs">{post.dislikes}</span>
 										</span>
 									</div>
 									<Link href={`/post/${post.id}`} className="flex items-end">

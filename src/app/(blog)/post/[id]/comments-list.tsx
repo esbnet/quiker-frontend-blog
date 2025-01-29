@@ -5,23 +5,23 @@ import { FaTrash, FaUser } from "react-icons/fa";
 
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/context/user-context";
+import { removeComment } from "@/services/comment-remove";
+import type { AuthorProps } from "@/types/author-type";
 import type { CommentProps } from "@/types/comment-type";
 import { ptBR as locale } from "date-fns/locale";
 import { CiCircleRemove } from "react-icons/ci";
-import { removeComment } from "../../../../services/comment-remove";
 
 interface CommentsListProps {
 	comments: CommentProps[];
-	postAuthorId: string;
+	postAuthor: AuthorProps;
 }
 
 export default function CommentsList({
 	comments,
-	postAuthorId,
+	postAuthor,
 }: CommentsListProps) {
 	const { user } = useUser();
-
-	const commentsWithoutRemoved = comments.filter((comment) => !comment.removed);
+	// const commentsWithoutRemoved = comments.filter((comment) => !comment.removed);
 
 	const handleRemoveComment = async (id: string) => {
 		await removeComment(id);
@@ -38,10 +38,10 @@ export default function CommentsList({
 						>
 							<div className={"bg-slate-600/20 p-4 rounded-full "}>
 								<p className="font-bold text-[0.6rem] translucent">
-									{comment.user.name}
+									{postAuthor.name}
 									<span>{format(new Date(comment.createdAt), "MMM-yyyy")}</span>
 								</p>
-								<p>{comment.description}</p>
+								<p>{comment.content}</p>
 							</div>
 							<span className="pl-4 font-bold text-[0.6rem]">
 								{formatDistanceToNow(new Date(comment.createdAt), { locale })}
@@ -53,10 +53,10 @@ export default function CommentsList({
 							</p>
 						) : (
 							<>
-								{(user?.id === postAuthorId ||
-									user?.id === comment.user.id) && (
+								{(user?.id === postAuthor.id ||
+									user?.id === comment.user?.id) && (
 									<Button
-										title="Excluir comentario"
+										title="Excluir comentário"
 										onClick={() => handleRemoveComment(comment.id)}
 										variant={"ghost"}
 										className="flex items-center hover:text-indigo-600"

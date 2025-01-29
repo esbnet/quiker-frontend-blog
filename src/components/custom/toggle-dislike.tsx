@@ -1,12 +1,12 @@
 "use client";
 
-import { BiDislike, BiSolidDislike } from "react-icons/bi";
-import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { BiDislike, BiSolidDislike } from "react-icons/bi";
 
-import type { LikeType } from "@/types/like-type";
 import { api } from "@/lib/api";
 import { queryClient } from "@/lib/react-query";
+import type { LikeType } from "@/types/like-type";
 
 type LikeProps = {
 	authorId: string;
@@ -14,7 +14,7 @@ type LikeProps = {
 };
 
 export function ToggleDisLike({ authorId, postId }: LikeProps) {
-	const [disliked, setDisliked] = useState<boolean>(false);
+	const [disliked, setDisliked] = useState<boolean>();
 
 	// Obter dados de dislike do banco
 	const {
@@ -28,12 +28,14 @@ export function ToggleDisLike({ authorId, postId }: LikeProps) {
 				authorId,
 				postId,
 			});
+
 			return response.data;
 		},
 	});
 
 	// Atualizar dislike no banco
 	const { mutate: updateDislike } = useMutation({
+		mutationKey: ["disliked", disliked],
 		mutationFn: (updates: LikeType) => api.put("/post/dislike", updates),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
@@ -61,20 +63,13 @@ export function ToggleDisLike({ authorId, postId }: LikeProps) {
 	// Clique para alterar o dislike
 	const handleClick = () => {
 		if (dislikeData) {
-			updateDislike(
-				{
-					id: dislikeData.id,
-					postId,
-					authorId,
-					dislike: !disliked,
-					createdAt: Date.now().toString(),
-				},
-				{
-					onSuccess: () => {
-						setDisliked((prev) => !prev);
-					},
-				},
-			);
+			updateDislike({
+				id: dislikeData.id,
+				postId,
+				authorId,
+				dislike: !disliked,
+				createdAt: Date.now().toString(),
+			});
 		}
 	};
 
@@ -87,6 +82,7 @@ export function ToggleDisLike({ authorId, postId }: LikeProps) {
 			title="Não gostei 🤮"
 			className="flex items-center hover:text-indigo-600 transform transition-transform duration-300 cursor-pointer hover:scale-125"
 		>
+			<span className="text-white">{disliked}</span>
 			{disliked ? (
 				<BiSolidDislike className="w-6 h-6" onClick={handleClick} />
 			) : (

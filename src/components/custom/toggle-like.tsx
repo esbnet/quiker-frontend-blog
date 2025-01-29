@@ -1,12 +1,12 @@
 "use client";
 
-import { BiLike, BiSolidLike } from "react-icons/bi";
-import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { BiLike, BiSolidLike } from "react-icons/bi";
 
-import type { LikeType } from "@/types/like-type";
 import { api } from "@/lib/api";
 import { queryClient } from "@/lib/react-query";
+import type { LikeType } from "@/types/like-type";
 
 type LikeProps = {
 	authorId: string;
@@ -14,7 +14,7 @@ type LikeProps = {
 };
 
 export function ToggleLike({ authorId, postId }: LikeProps) {
-	const [liked, setLiked] = useState<boolean>(false);
+	const [liked, setLiked] = useState<boolean>();
 
 	// Obter dados de like do banco
 	const {
@@ -34,6 +34,7 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 
 	// Atualizar like no banco
 	const { mutate: updateLike } = useMutation({
+		mutationKey: ["liked", liked],
 		mutationFn: (updates: LikeType) => api.put("/post/like", updates),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
@@ -61,20 +62,13 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 	// Clique para alterar o like
 	const handleClick = () => {
 		if (likeData) {
-			updateLike(
-				{
-					id: likeData.id,
-					postId,
-					authorId,
-					like: !liked,
-					createdAt: Date.now().toString(),
-				},
-				{
-					onSuccess: () => {
-						setLiked((prev) => !prev);
-					},
-				},
-			);
+			updateLike({
+				id: likeData.id,
+				postId,
+				authorId,
+				like: !liked,
+				createdAt: Date.now().toString(),
+			});
 		}
 	};
 
