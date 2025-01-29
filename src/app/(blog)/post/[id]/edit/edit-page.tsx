@@ -18,6 +18,7 @@ import { getPost } from "@/services/post-get";
 import type { PostUpdateProps } from "@/types/post-type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { redirect, useParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { BiNews } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 
@@ -42,6 +43,7 @@ type FormData = z.infer<typeof schema>;
 
 export function EditPostForm() {
 	const { user } = useUser();
+
 	if (user === null) {
 		return redirect("/sign-in");
 	}
@@ -60,6 +62,7 @@ export function EditPostForm() {
 
 	// Atualizar like no banco
 	const { mutate: postEdit } = useMutation({
+		mutationKey: ["post-edit", id],
 		mutationFn: (updates: PostUpdateProps) => api.put("/post", updates),
 		onSuccess: () => {
 			toast.success("Post atualizado com sucesso");
@@ -92,14 +95,6 @@ export function EditPostForm() {
 	});
 
 	const handleEditPost: SubmitHandler<FormData> = async (data) => {
-		// const postData = {
-		// 	id: id,
-		// 	title: data.title,
-		// 	content: data.content,
-		// 	imageUrl: data.imageUrl,
-		// 	userId: user.id,
-		// } as PostUpdateProps;
-
 		postEdit({
 			id: id,
 			title: data.title,
@@ -108,6 +103,14 @@ export function EditPostForm() {
 			userId: user.id,
 		});
 	};
+
+	useEffect(() => {
+		reset({
+			title: initialPost?.title,
+			content: initialPost?.content,
+			imageUrl: initialPost?.imageUrl,
+		});
+	}, [initialPost, reset]);
 
 	if (isLoading) {
 		return <p>Carregando...</p>;
