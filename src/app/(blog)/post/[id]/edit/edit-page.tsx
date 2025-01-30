@@ -40,7 +40,6 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>;
-
 export function EditPostForm() {
 	const { user } = useUser();
 
@@ -164,6 +163,7 @@ export function EditPostForm() {
 				<Separator className="my-4" />
 				<div className="flex gap-2">
 					<Button
+						type="submit"
 						className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
 						title="Acessar área administrativa"
 					>

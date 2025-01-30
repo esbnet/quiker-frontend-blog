@@ -94,13 +94,7 @@ export default function PostPage() {
 					{user !== null && user?.id === post.author.id ? (
 						<div className="flex gap-2">
 							<ButtonPostEdit postId={post.id} />
-							<DeletePost
-								postId={post.id}
-								onDelete={() => {
-									// Ações adicionais após deletar, se necessário
-									console.log("Post deletado com sucesso");
-								}}
-							/>
+							<DeletePost postId={post.id} postAuthorId={post.author.id} />
 						</div>
 					) : (
 						<></>

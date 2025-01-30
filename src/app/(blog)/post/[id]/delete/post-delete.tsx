@@ -12,36 +12,67 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { redirect, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
-import { api } from "@/lib/api";
-import axios from "axios";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useUser } from "@/context/user-context";
+import { api } from "@/lib/api";
+import { queryClient } from "@/lib/react-query";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { Trash2 } from "lucide-react";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface DeletePostProps {
 	postId: string;
+	postAuthorId: string;
 	onDelete?: () => void;
 }
 
-export function DeletePost({ postId, onDelete }: DeletePostProps) {
+export function DeletePost({
+	postId,
+	onDelete,
+	postAuthorId,
+}: DeletePostProps) {
 	const router = useRouter();
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 
 	const { user } = useUser();
 
+	if (user === null) {
+		return redirect("/sign-in");
+	}
+
+	const { mutate: postEdit } = useMutation({
+		mutationKey: ["post-delete", postId, postAuthorId],
+		mutationFn: ({
+			postId,
+			postAuthorId,
+		}: { postId: string; postAuthorId: string }) =>
+			api.delete("/post/delete", {
+				data: { postId, postAuthorId },
+			}),
+		onSuccess: () => {
+			toast.success("Post deletado com sucesso");
+
+			queryClient.invalidateQueries({
+				queryKey: ["posts"],
+			});
+		},
+		onError: (error) => {
+			toast.error(`Erro ao deletar o post: ${error}`);
+			console.error("Erro ao deletar o post:", error);
+		},
+	});
+
 	const handleDelete = async () => {
 		setIsDeleting(true);
 		setError(null);
 
 		try {
-			await api.delete("/post", { data: { postId, authorId: user?.id } });
-
-			toast.success("Post Deletado com sucesso");
+			postEdit({ postId, postAuthorId });
 
 			// Callback opcional após deletar
 			if (onDelete) {
@@ -49,8 +80,7 @@ export function DeletePost({ postId, onDelete }: DeletePostProps) {
 			}
 
 			// Redirecionar para a lista de posts
-			router.push("/");
-			router.refresh();
+			router.replace("/");
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
 				setError(err.response?.data?.message || "Erro ao deletar o post");
@@ -81,7 +111,7 @@ export function DeletePost({ postId, onDelete }: DeletePostProps) {
 						<AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
 						<AlertDialogDescription>
 							Tem certeza que deseja excluir este post? Esta ação excluirá
-							também todos o os comentários e não pode ser desfeita.
+							definitivamente o poar e todo o histórico dele.
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 
