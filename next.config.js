@@ -52,6 +52,10 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "google.com",
+      },
+      {
+        protocol: "https",
+        hostname: "unsplash.com",
       }
     ],
   },

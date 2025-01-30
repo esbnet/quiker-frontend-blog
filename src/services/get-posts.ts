@@ -1,7 +1,45 @@
 import { api } from "@/lib/api";
-import type { PostProps } from "@/types/post-type";
 
-export async function getPosts(): Promise<PostProps[]> {
-	const posts = await api.get<PostProps[]>("/posts");
-	return posts.data;
+export interface GetOrdersQuery {
+	pageIndex?: number | null;
+	orderId?: string | null;
+	customerName?: string | null;
+	status?: string | null;
+}
+
+export interface GetOrdersResponse {
+	orders: {
+		orderId: string;
+		createdAt: Date;
+		status:
+			| "pending"
+			| "approved"
+			| "canceled"
+			| "processing"
+			| "delivering"
+			| "delivered";
+		customerName: string;
+		total: number;
+	}[];
+	meta: {
+		pageIndex: number;
+		perPage: number;
+		totalCount: number;
+	};
+}
+export async function getOrders({
+	pageIndex,
+	orderId,
+	customerName,
+	status,
+}: GetOrdersQuery) {
+	const response = await api.get<GetOrdersResponse>("/orders", {
+		params: {
+			pageIndex,
+			orderId,
+			customerName,
+			status,
+		},
+	});
+	return response.data;
 }

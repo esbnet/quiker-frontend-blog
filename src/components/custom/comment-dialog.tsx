@@ -2,6 +2,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
+	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger,
@@ -9,24 +10,38 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { saveComment } from "@/services/comment-save";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { MdSend } from "react-icons/md";
+import { TfiCommentAlt } from "react-icons/tfi";
 import { toast } from "sonner";
 import { Textarea } from "../ui/textarea";
 
 interface CommentProps {
 	authorId: string;
 	postId: string;
+	isEditing?: boolean;
 }
 
-export function CommentDialog({ authorId, postId }: CommentProps) {
-	const [isOpen, setisOpen] = useState(false);
+export function CommentDialog({ authorId, postId, isEditing = false }: CommentProps) {
+	const [isOpen, setIsOpen] = useState(false);
 	const [comment, setComment] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState("");
 
-	const route = useRouter();
+	const router = useRouter();
 
-	const handleComment = async () => {
+	const handleComment = async (e: React.FormEvent) => {
+		e.preventDefault();
+		setIsLoading(true);
+		setError("");
+
+		if (!comment.trim()) {
+			setError("O conteúdo não pode estar vazio");
+			setIsLoading(false);
+			return;
+		}
+
 		try {
 			await saveComment({
 				authorId,
@@ -34,58 +49,63 @@ export function CommentDialog({ authorId, postId }: CommentProps) {
 				description: comment,
 			});
 
-			toast.success("Comentario registrado com sucesso");
-		} catch (error) {
-			toast.error("Erro ao registrar o comentario", {
-				description: "Tente novamente mais tarde",
-			});
+			toast.success("Comentário registrado com sucesso");
+		} catch (err) {
+			setError("Ocorreu um erro ao salvar o comentário. Tente novamente mais tarde.");
 		} finally {
-			setisOpen(false);
+			setIsOpen(false);
+			setIsLoading(false);
 		}
 
-		route.push(`/post/${postId}`);
+		router.back();
 	};
 
 	return (
-		<Dialog open={isOpen} onOpenChange={setisOpen}>
+		<Dialog open={isOpen} onOpenChange={setIsOpen}>
 			<DialogTrigger asChild>
 				<Button
+					title="Deixe sua opinião! 😇 ↔ 😈"
 					variant={"ghost"}
-					className="flex items-center hover:text-indigo-600 transition-all animate-pulse hover:animate-bounce"
+					className="flex items-center hover:text-indigo-600 transform transition-transform duration-300 cursor-pointer hover:scale-125"
 				>
-					Comentar
+					<TfiCommentAlt size={18} />
 				</Button>
 			</DialogTrigger>
 			<DialogContent className="flex flex-col justify-between items-center gap-8 border-slate-600 dark:border-slate-800 bg-slate-800/90 dark:bg-slate-800/80 shadow-xl p-8 border rounded-xl w-full sm:max-w-[480px] text-slate-200">
 				<DialogHeader>
-					<DialogTitle>Comentar o artigo</DialogTitle>
+					<DialogTitle>{isEditing ? 'Editar Post' : 'Criar Novo Post'}</DialogTitle>
 					<DialogDescription>
-						Faça seu comentario aqui de forma respeitosa e cordial. Preze pela
+						Faça  aqui seu comentário de forma respeitosa e cordial. Preze pela
 						boa convivência e cordialidade.
 					</DialogDescription>
 				</DialogHeader>
-				<div className="gap-2 w-full felx">
-					{/* <Label htmlFor="name" className="">
-						Comentário
-					</Label> */}
-					<div className="items-center gap-4 w-full">
+				<form onSubmit={handleComment}>
+					<div className="space-y-4">
 						<Textarea
 							id="name"
 							className="w-full"
 							placeholder="Digite seu comentário"
 							onChange={(e) => setComment(e.target.value)}
+							value={comment}
+							disabled={isLoading}
 						/>
+						{error && (
+							<p className="text-red-500 text-sm">{error}</p>
+						)}
+						<DialogFooter>
+							<Button type="submit" disabled={isLoading}>
+								{isLoading ? (
+									<>
+										<Loader2 className="mr-2 w-4 h-4 animate-spin" />
+										Salvando...
+									</>
+								) : (
+									'Salvar'
+								)}
+							</Button>
+						</DialogFooter>
 					</div>
-				</div>
-				<Button
-					onClick={handleComment}
-					variant={"ghost"}
-					title="Enviar comentário"
-					disabled={false}
-					className="hover:text-indigo-600"
-				>
-					<MdSend size={20} className="mr-2" />
-				</Button>
+				</form>
 			</DialogContent>
 		</Dialog>
 	);

@@ -1,10 +1,10 @@
-import type { AuthorProps, PostProps } from "@/types/comment-type";
-
 import { AuthorController } from "@/controller/posts/author-controller";
+import type { AuthorProps } from "@/types/author-type";
 import { PostController } from "@/controller/posts/post-controller";
+import type { PostProps } from "@/types/post-type";
 
 // hooks/useControllers.ts
-const useControllers = () => {
+const useControllersA = () => {
 	const authorController = new AuthorController();
 	const postController = new PostController(authorController);
 
@@ -25,4 +25,4 @@ const useControllers = () => {
 	};
 };
 
-export default useControllers;
+export default useControllersA;

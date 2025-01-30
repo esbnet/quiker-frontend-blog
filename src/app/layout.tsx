@@ -15,7 +15,7 @@ export const metadata = {
 		default: "Quiker News",
 		template: "%s | Home",
 	},
-	description: "tecnologia em evidência",
+	content: "tecnologia em evidência",
 	Icon: "/quiker.ico",
 	robots: {
 		index: false,
@@ -34,16 +34,17 @@ export default function RootLayout({
 				className={`${jura.className} justify-center px-2 antialiased h-screen`}
 			>
 				<Toaster
+					position="top-right"
 					toastOptions={{
 						duration: 4000,
 						classNames: {
 							title: "text-slate-100",
-							description: "text-slate-200",
+							content: "text-slate-200",
 							actionButton: "bg-zinc-400",
 							cancelButton: "bg-orange-400",
 							closeButton: "bg-lime-400",
 							success: "bg-green-400/50",
-							info: "bg-blue-400-50",
+							info: "bg-blue-400/50",
 							warning: "bg-yellow-400/50",
 							error: "bg-red-400/50",
 						},
@@ -57,9 +58,7 @@ export default function RootLayout({
 					}}
 				/>
 
-				<AppProviders>
-					<div suppressHydrationWarning={true}>{children}</div>
-				</AppProviders>
+				<AppProviders>{children}</AppProviders>
 			</body>
 		</html>
 	);
