@@ -1,11 +1,11 @@
 "use client";
 
-import BreakNews from "./post/break-news";
 import { Button } from "@/components/ui/button";
-import { FaPlus } from "react-icons/fa";
-import { PostsList } from "./post/posts-list";
-import { useRouter } from "next/navigation";
 import { useUser } from "@/context/user-context";
+import { useRouter } from "next/navigation";
+import { FaPlus } from "react-icons/fa";
+import { BreakNews } from "./post/break-news";
+import { PostsList } from "./post/posts-list";
 
 export default function PostsPage() {
 	const { user } = useUser();
@@ -32,6 +32,7 @@ export default function PostsPage() {
 
 			<h2 className="font-bold text-3xl">Destaque do dia</h2>
 			<BreakNews />
+
 			<h2 className="font-bold text-3xl">Mais recentes</h2>
 			<PostsList />
 		</section>

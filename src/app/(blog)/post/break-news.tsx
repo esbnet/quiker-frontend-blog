@@ -13,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
-export default function BreakNews() {
+export function BreakNews() {
 	const {
 		data: posts,
 		isLoading,
@@ -44,19 +44,20 @@ export default function BreakNews() {
 			<div className="flex-1 p-4 pr-0 rounded-r-md">
 				<div className="flex flex-col h-full">
 					<div className="flex justify-between">
-						<h2
-							className={`font-bold ${titleMain.className} text-3xl capitalize`}
+						<p
+							className={`font-bold ${titleMain.className} text-3xl capitalize w-[70%] `}
 						>
 							{post?.title}
-						</h2>
-						<h3 className="text-right flex flex-col justify-items-end text-slate-500">
+						</p>
+						<p className="text-right flex flex-col justify-items-end text-slate-500">
 							<span>{post?.author.name}</span>
 							<span className="text-xs">
 								{formatDistanceToNow(post?.createdAt ?? new Date(), { locale })}
 							</span>
-						</h3>
+						</p>
 					</div>
-					<p className="mt-4 line-clamp-5 text-justify text-slate-700 text-xl dark:text-slate-400">
+
+					<p className="mt-4 line-clamp-5 text-green-400 text-justify text-xl dark:text-slate-300">
 						{post?.content}
 					</p>
 				</div>
