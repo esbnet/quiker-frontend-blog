@@ -1,5 +1,5 @@
 // services/postService.ts
-import type { PostProps } from "@/types/post-type";
+import type { PostProps } from "@/@types/post-type";
 import { api } from "../lib/api";
 
 export class PostService {

@@ -1,5 +1,5 @@
+import type { PostUpdateProps } from "@/@types/post-type";
 import { api } from "@/lib/api";
-import type { PostUpdateProps } from "@/types/post-type";
 
 export async function updatePost(data: PostUpdateProps) {
 	// try {

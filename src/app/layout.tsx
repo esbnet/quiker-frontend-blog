@@ -3,17 +3,17 @@ import "./globals.css";
 import { FaCheck, FaInfo } from "react-icons/fa";
 import { MdErrorOutline, MdOutlineDownload } from "react-icons/md";
 
-import { Toaster } from "@/components/ui/sonner";
 import { AppProviders } from "@/context/app-providers";
-import { Jura } from "next/font/google";
 import { CiWarning } from "react-icons/ci";
+import { Jura } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 const jura = Jura({ subsets: ["latin"], weight: "300" });
 
 export const metadata = {
 	title: {
 		default: "Quiker News",
-		template: "%s | Home",
+		template: "%s | XXXXXXXX",
 	},
 	content: "tecnologia em evidência",
 	Icon: "/quiker.ico",

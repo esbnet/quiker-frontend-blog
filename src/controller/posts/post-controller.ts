@@ -1,8 +1,8 @@
 // controllers/PostController.ts
 
-import { PostService } from "@/services/postService";
-import type { PostProps } from "../../types/comment-type";
 import type { AuthorController } from "./author-controller";
+import type { PostProps } from "../../@types/comment-type";
+import { PostService } from "@/services/postService";
 
 export class PostController {
 	private posts: PostProps[] = [];

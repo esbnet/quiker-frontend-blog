@@ -1,12 +1,13 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import { BiLike, BiSolidLike } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
+import { ImSpinner9 } from "react-icons/im";
+import type { LikeType } from "@/@types/like-type";
 import { api } from "@/lib/api";
 import { queryClient } from "@/lib/react-query";
-import type { LikeType } from "@/types/like-type";
 
 type LikeProps = {
 	authorId: string;
@@ -34,7 +35,7 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 
 	// Atualizar like no banco
 	const { mutate: updateLike } = useMutation({
-		mutationKey: ["liked", liked],
+		mutationKey: ["liking", liked],
 		mutationFn: (updates: LikeType) => api.put("/post/like", updates),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
@@ -73,7 +74,7 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 	};
 
 	// Renderizar componente
-	if (isLoading) return <div>Carregando...</div>;
+	if (isLoading) return <ImSpinner9 className="text-2xl animate-spin" />;
 	if (isError) return <div>Erro ao carregar like</div>;
 
 	return (

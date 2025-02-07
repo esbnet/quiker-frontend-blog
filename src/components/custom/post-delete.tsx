@@ -15,14 +15,14 @@ import {
 import { redirect, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/user-context";
-import { api } from "@/lib/api";
-import { queryClient } from "@/lib/react-query";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
 import { Trash2 } from "lucide-react";
-import { useState } from "react";
+import { api } from "@/lib/api";
+import axios from "axios";
+import { queryClient } from "@/lib/react-query";
 import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useUser } from "@/context/user-context";
 
 interface DeletePostProps {
 	postId: string;
@@ -108,7 +108,7 @@ export function DeletePost({
 
 				<AlertDialogContent className="flex flex-col justify-between items-center gap-8 border-slate-600 dark:border-slate-800 bg-slate-800/90 dark:bg-slate-800/80 shadow-xl p-8 border rounded-xl w-full sm:max-w-[480px] text-slate-200">
 					<AlertDialogHeader>
-						<AlertDialogTitle>Confirmar exclusão</AlertDialogTitle>
+						<AlertDialogTitle>Deletar Post</AlertDialogTitle>
 						<AlertDialogDescription>
 							Tem certeza que deseja excluir este post? Esta ação excluirá
 							definitivamente o poar e todo o histórico dele.

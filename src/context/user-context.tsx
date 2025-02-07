@@ -1,6 +1,6 @@
 "use client";
 
-import type { User } from "@/types/user-data";
+import type { User } from "@/@types/user-data";
 import { type ReactNode, createContext, useContext, useState } from "react";
 import { FaUser } from "react-icons/fa";
 import { toast } from "sonner";

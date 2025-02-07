@@ -1,15 +1,15 @@
 import { BiDislike, BiLike } from "react-icons/bi";
 
-import SkeletonBreakNews from "@/components/custom/skeleton-break-news";
-import { getPosts } from "@/services/posts-get";
-import { useQuery } from "@tanstack/react-query";
-import { formatDistanceToNow } from "date-fns";
-import { ptBR as locale } from "date-fns/locale";
 import { Anton } from "next/font/google";
+import { FaRegEye } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
-import { FaRegEye } from "react-icons/fa";
 import { MdReadMore } from "react-icons/md";
+import SkeletonBreakNews from "@/components/custom/skeleton-break-news";
+import { formatDistanceToNow } from "date-fns";
+import { getPosts } from "@/services/posts-get";
+import { ptBR as locale } from "date-fns/locale";
+import { useQuery } from "@tanstack/react-query";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 

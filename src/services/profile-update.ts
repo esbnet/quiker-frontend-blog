@@ -1,5 +1,5 @@
+import type { AuthorProps } from "../@types/author-type";
 import { api } from "@/lib/api";
-import type { AuthorProps } from "../types/author-type";
 
 interface UserUpdateProps {
 	id: string;

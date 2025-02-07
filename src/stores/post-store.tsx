@@ -1,6 +1,6 @@
 "use client";
 
-import type { PostNewProps } from "@/types/post-type";
+import type { PostNewProps } from "@/@types/post-type";
 import { create } from "zustand";
 
 type PostStoreProps = {

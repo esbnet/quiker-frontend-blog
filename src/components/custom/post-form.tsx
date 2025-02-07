@@ -12,10 +12,12 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { useUser } from "@/context/user-context";
-import { useRouter } from "next/navigation";
+import { addPost } from "@/services/post-add";
+import { Loader } from "lucide-react";
+import { redirect, useRouter } from "next/navigation";
+import { useState } from "react";
 import { BiNews } from "react-icons/bi";
 import { TiCancelOutline } from "react-icons/ti";
-import { addPost } from "../../../../../services/post-add";
 
 const schema = z.object({
 	title: z
@@ -37,9 +39,15 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function PostForm() {
+	const [isSaving, setIsSaving] = useState(false);
 	const { user } = useUser();
 	const authorId = user?.id;
 	const route = useRouter();
+
+	if (user === null) {
+		return redirect("/sign-in");
+	}
+
 	const {
 		register,
 		handleSubmit,
@@ -52,6 +60,7 @@ export default function PostForm() {
 	});
 
 	const handleAddPost: SubmitHandler<FormData> = async (data) => {
+		setIsSaving(true);
 		const post = {
 			authorId: authorId as string,
 			...data,
@@ -61,9 +70,11 @@ export default function PostForm() {
 			toast.success("Post criado com sucesso");
 		} catch (error) {
 			toast.error(`Erro ao criar o Post: ${error}`);
+		} finally {
+			setIsSaving(false);
+			reset();
+			route.push("/");
 		}
-		reset();
-		route.push("/");
 	};
 
 	return (
@@ -110,14 +121,25 @@ export default function PostForm() {
 
 				<Separator className="my-4" />
 				<div className="flex gap-2">
-					<Button
-						className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
-						type="submit"
-						title="Acessar área administrativa"
-					>
-						<BiNews className="mr-2" />
-						Publicar
-					</Button>
+					{isSaving ? (
+						<Button
+							className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+							type="submit"
+							title="Acessar área administrativa"
+						>
+							<Loader className="mr-2 animate-spin" />
+						</Button>
+					) : (
+						<Button
+							className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+							type="submit"
+							title="Acessar área administrativa"
+						>
+							<BiNews className="mr-2" />
+							Publicar
+						</Button>
+					)}
+
 					<Button
 						onClick={() => route.back()}
 						className="flex-1 bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"

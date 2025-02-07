@@ -1,13 +1,13 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { BiLike, BiSolidLike } from "react-icons/bi";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { useUser } from "@/context/user-context";
+import type { LikeType } from "@/@types/like-type";
 import { api } from "@/lib/api";
 import { queryClient } from "@/lib/react-query";
-import type { LikeType } from "@/types/like-type";
 import { useState } from "react";
+import { useUser } from "@/context/user-context";
 
 type LikeProps = {
 	postId: string;

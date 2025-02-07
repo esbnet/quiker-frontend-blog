@@ -1,5 +1,5 @@
-import { metadata } from "@/app/layout";
 import Posts from "./posts";
+import { metadata } from "@/app/layout";
 
 type AuthorProps = {
 	id: string;
@@ -20,7 +20,7 @@ type PostProps = {
 
 metadata.title.default = "Quiker News | Estatística";
 
-export default async function Blog() {
+export default async function Report() {
 	return (
 		<>
 			<div className="flex justify-between">

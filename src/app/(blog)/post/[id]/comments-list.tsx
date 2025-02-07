@@ -1,15 +1,15 @@
 "use client";
 
-import { format, formatDistanceToNow } from "date-fns";
 import { FaTrash, FaUser } from "react-icons/fa";
+import { format, formatDistanceToNow } from "date-fns";
 
+import type { AuthorProps } from "@/@types/author-type";
 import { Button } from "@/components/ui/button";
-import { useUser } from "@/context/user-context";
-import { removeComment } from "@/services/comment-remove";
-import type { AuthorProps } from "@/types/author-type";
-import type { CommentProps } from "@/types/comment-type";
-import { ptBR as locale } from "date-fns/locale";
 import { CiCircleRemove } from "react-icons/ci";
+import type { CommentProps } from "@/@types/comment-type";
+import { ptBR as locale } from "date-fns/locale";
+import { removeComment } from "@/services/comment-remove";
+import { useUser } from "@/context/user-context";
 
 interface CommentsListProps {
 	comments: CommentProps[];

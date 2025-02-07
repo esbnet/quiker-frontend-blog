@@ -16,8 +16,8 @@ import { z } from "zod";
 
 import { updateUser } from "@/services/user-update";
 
+import type { AuthorProps } from "@/@types/author-type";
 import { useUser } from "@/context/user-context";
-import type { AuthorProps } from "@/types/author-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useState } from "react";

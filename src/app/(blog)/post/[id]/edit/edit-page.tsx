@@ -11,11 +11,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 
+import type { PostUpdateProps } from "@/@types/post-type";
 import { useUser } from "@/context/user-context";
 import { api } from "@/lib/api";
 import { queryClient } from "@/lib/react-query";
 import { getPost } from "@/services/post-get";
-import type { PostUpdateProps } from "@/types/post-type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { redirect, useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -40,7 +40,7 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>;
-export function EditPostForm() {
+export function EditPost() {
 	const { user } = useUser();
 
 	if (user === null) {

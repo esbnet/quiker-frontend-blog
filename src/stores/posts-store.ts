@@ -1,5 +1,5 @@
+import type { PostProps } from "../@types/post-type";
 import { create } from "zustand";
-import type { PostProps } from "../types/post-type";
 
 type PostStore = {
 	post: (id: string) => void;
