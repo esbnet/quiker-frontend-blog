@@ -3,18 +3,14 @@ import { api } from "@/lib/api";
 interface CommentProps {
 	authorId: string;
 	postId: string;
-	description: string;
+	content: string;
 }
 
-export async function saveComment({
-	authorId,
-	postId,
-	description,
-}: CommentProps) {
-	const comment = await api.post<CommentProps>("/comment/new", {
+export async function saveComment({ authorId, postId, content }: CommentProps) {
+	const comment = await api.post("/comment/new", {
 		authorId,
 		postId,
-		description,
+		content,
 	});
 
 	return comment.data;

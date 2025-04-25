@@ -17,12 +17,14 @@ export function Profile() {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56" align="end" forceMount>
 				<DropdownMenuLabel className="font-normal">
-					My account
+					Minha conta
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				<DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
-				<DropdownMenuItem className="cursor-pointer">Settings</DropdownMenuItem>
-				<DropdownMenuItem className="cursor-pointer">Logout</DropdownMenuItem>
+				<DropdownMenuItem className="cursor-pointer">Perfil</DropdownMenuItem>
+				<DropdownMenuItem className="cursor-pointer">
+					Preferências
+				</DropdownMenuItem>
+				<DropdownMenuItem className="cursor-pointer">Sair</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);

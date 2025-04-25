@@ -1,11 +1,12 @@
 // post/posts-list.tsx
 // "use client";
 
-import { Anton } from "next/font/google";
-import Post from "@/components/custom/post";
 import type { PostProps } from "@/@types/post-type";
+import Post from "@/components/custom/post";
+import SkeletonPostList from "@/components/custom/skeleton-post-list";
 import { getPosts } from "@/services/posts-get";
 import { useQuery } from "@tanstack/react-query";
+import { Anton } from "next/font/google";
 
 const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
@@ -19,7 +20,7 @@ export function PostsList() {
 		queryFn: getPosts,
 	});
 
-	if (isLoading) return <div>Carregando...</div>;
+	if (isLoading) return <SkeletonPostList />;
 	if (isError) return <div className="text-red-500">{isError}</div>;
 	if (!posts) {
 		return (
@@ -38,7 +39,7 @@ export function PostsList() {
 					return <Post key={post.id} {...post} />;
 				})}
 			</div>
-			<div className="sm:block hidden bg-slate-300/50 dark:bg-slate-600/20 shadow-lg p-4 rounded-md w-1/3 text-2xl">
+			<div className="hidden sm:block bg-slate-300/50 dark:bg-slate-600/20 shadow-lg p-4 rounded-md w-1/3 text-2xl">
 				Categorias
 			</div>
 		</section>

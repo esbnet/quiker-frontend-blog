@@ -23,7 +23,7 @@ function DarkMode() {
 
 export default function Footer() {
 	return (
-		<section className="flex flex-col justify-between items-center border-slater-600/50 mt-8 px-2 border-t border-b w-full font-mono text-gray-500 text-xs sm:h[10vh]">
+		<section className="flex flex-col justify-between items-center mt-8 px-2 border-slater-600/50 border-t border-b w-full font-mono text-gray-500 text-xs h[10vh]">
 			<div className="flex sm:flex-row flex-col p-2 w-full">
 				<div className="flex flex-1">
 					<div className="flex w-full">
@@ -57,7 +57,7 @@ export default function Footer() {
 				</div>
 			</div>
 
-			<div className="flex justify-center items-center border-y-slate-600/30 p-2 border-t border-dotted w-full">
+			<div className="flex justify-center items-center p-2 border-y-slate-600/30 border-t border-dotted w-full">
 				<AiOutlineCopyrightCircle />
 				{new Date().getFullYear()} | powered by @esbnet
 			</div>

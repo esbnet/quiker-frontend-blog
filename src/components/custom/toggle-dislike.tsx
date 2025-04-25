@@ -1,20 +1,20 @@
 "use client";
 
-import { BiDislike, BiSolidDislike } from "react-icons/bi";
-import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { BiDislike, BiSolidDislike } from "react-icons/bi";
 
-import { ImSpinner9 } from "react-icons/im";
 import type { LikeType } from "@/@types/like-type";
 import { api } from "@/lib/api";
 import { queryClient } from "@/lib/react-query";
+import { ImSpinner9 } from "react-icons/im";
 
 type LikeProps = {
-	authorId: string;
+	userId: string;
 	postId: string;
 };
 
-export function ToggleDisLike({ authorId, postId }: LikeProps) {
+export function ToggleDisLike({ userId, postId }: LikeProps) {
 	const [disliked, setDisliked] = useState<boolean>();
 
 	// Obter dados de dislike do banco
@@ -23,10 +23,10 @@ export function ToggleDisLike({ authorId, postId }: LikeProps) {
 		isLoading,
 		isError,
 	} = useQuery({
-		queryKey: ["get-dislike", authorId, postId],
+		queryKey: ["get-dislike", userId, postId],
 		queryFn: async () => {
 			const response = await api.post("/post/like", {
-				authorId,
+				authorId: userId,
 				postId,
 			});
 
@@ -40,10 +40,10 @@ export function ToggleDisLike({ authorId, postId }: LikeProps) {
 		mutationFn: (updates: LikeType) => api.put("/post/dislike", updates),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: ["get-dislike", authorId, postId],
+				queryKey: ["get-dislike", userId, postId],
 			});
 			queryClient.invalidateQueries({
-				queryKey: ["get-like", authorId, postId],
+				queryKey: ["get-like", userId, postId],
 			});
 			queryClient.invalidateQueries({
 				queryKey: ["post", postId],
@@ -67,7 +67,7 @@ export function ToggleDisLike({ authorId, postId }: LikeProps) {
 			updateDislike({
 				id: dislikeData.id,
 				postId,
-				authorId,
+				authorId: userId,
 				dislike: !disliked,
 				createdAt: Date.now().toString(),
 			});
@@ -81,7 +81,7 @@ export function ToggleDisLike({ authorId, postId }: LikeProps) {
 	return (
 		<span
 			title="Não gostei 🤮"
-			className="flex items-center hover:text-indigo-600 transform transition-transform duration-300 cursor-pointer hover:scale-125"
+			className="flex items-center hover:text-indigo-600 hover:scale-125 transition-transform duration-300 cursor-pointer transform"
 		>
 			<span className="text-white">{disliked}</span>
 			{disliked ? (

@@ -7,5 +7,5 @@ export default function HomeLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	return <div className="flex flex-col">{children}</div>;
+	return <div className="flex flex-col flex-1 min-h-[79vh]">{children}</div>;
 }

@@ -1,14 +1,21 @@
 import "./globals.css";
 
-import { FaCheck, FaInfo } from "react-icons/fa";
-import { MdErrorOutline, MdOutlineDownload } from "react-icons/md";
+import { Anton, Jura } from "next/font/google";
 
 import { AppProviders } from "@/context/app-providers";
-import { CiWarning } from "react-icons/ci";
-import { Jura } from "next/font/google";
-import { Toaster } from "@/components/ui/sonner";
+import MyToaster from "@/components/custom/Toaster";
 
-const jura = Jura({ subsets: ["latin"], weight: "300" });
+const titles = Anton({
+	subsets: ["latin"],
+	weight: "400",
+	variable: "--font-anton",
+});
+
+const jura = Jura({
+	subsets: ["latin"],
+	weight: "300",
+	variable: "--font-jura",
+});
 
 export const metadata = {
 	title: {
@@ -29,35 +36,9 @@ export default function RootLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<html lang="pt-BR">
-			<body
-				className={`${jura.className} justify-center px-2 antialiased h-screen`}
-			>
-				<Toaster
-					position="top-right"
-					toastOptions={{
-						duration: 4000,
-						classNames: {
-							title: "text-slate-100",
-							content: "text-slate-200",
-							actionButton: "bg-zinc-400",
-							cancelButton: "bg-orange-400",
-							closeButton: "bg-lime-400",
-							success: "bg-green-400/50",
-							info: "bg-blue-400/50",
-							warning: "bg-yellow-400/50",
-							error: "bg-red-400/50",
-						},
-					}}
-					icons={{
-						success: <FaCheck />,
-						info: <FaInfo />,
-						warning: <CiWarning />,
-						error: <MdErrorOutline />,
-						loading: <MdOutlineDownload />,
-					}}
-				/>
-
+		<html lang="pt-BR" className={`${jura.variable} ${titles.variable}`}>
+			<body className="justify-center px-2 min-h-[100vh] antialiased">
+				<MyToaster />
 				<AppProviders>{children}</AppProviders>
 			</body>
 		</html>

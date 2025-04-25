@@ -19,6 +19,7 @@ import { getPost } from "@/services/post-get";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { redirect, useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
+
 import { BiNews } from "react-icons/bi";
 import { MdCancel } from "react-icons/md";
 
@@ -30,8 +31,8 @@ const schema = z.object({
 	content: z
 		.string()
 		.min(50, { message: "A descrição deve conter no mínimo 50 caracteres." })
-		.max(2048, {
-			message: "A descrição deve conter no máximo 2048 caracteres.",
+		.max(4096, {
+			message: "A descrição deve conter no máximo 4096 caracteres.",
 		}),
 	imageUrl: z
 		.string()
@@ -164,14 +165,14 @@ export function EditPost() {
 				<div className="flex gap-2">
 					<Button
 						type="submit"
-						className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+						className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-gray-500/50 hover:shadow-lg py-2 rounded-md w-full hover:font-bold text-white text-xl text-center"
 						title="Acessar área administrativa"
 					>
 						<BiNews className="mr-2" />
 						Salvar
 					</Button>
 					<Button
-						className="flex-1 bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-white text-xl"
+						className="flex-1 bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-gray-500/50 hover:shadow-lg py-2 rounded-md w-full hover:font-bold text-white text-xl text-center"
 						onClick={() => route.back()}
 						title="Cancela alterações e retorna ao post"
 					>

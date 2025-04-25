@@ -4,7 +4,7 @@ import type { AuthorProps } from "./author-type";
 
 export type CommentProps = {
 	id: string;
-	user: AuthorProps;
+	author: AuthorProps;
 	postId: string;
 	content: string;
 	createdAt: string;

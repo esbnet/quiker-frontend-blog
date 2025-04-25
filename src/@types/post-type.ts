@@ -20,10 +20,6 @@ export type PostNewProps = {
 	title: string;
 	content: string;
 	imageUrl: string;
-	// views: number;
-	// likes: number;
-	// dislikes: number;
-	// commentsCount: CommentProps[];
 };
 
 export type PostUpdateProps = {

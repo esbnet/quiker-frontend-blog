@@ -4,7 +4,7 @@ metadata.title.default = "Quiker News | Documentação";
 
 export default async function Blog() {
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col flex-1 min-h-[79vh]">
 			<h1 className="mb-4 font-extrabold text-3xl"># Quiker News</h1>
 
 			<p className="mb-2">

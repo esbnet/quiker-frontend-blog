@@ -38,18 +38,16 @@ export function BreakNews() {
 					alt=""
 					width={500}
 					height={200}
-					className="rounded-md h-72 transform transition-transform duration-300 hover:scale-105 object-cover"
+					className="rounded-md h-72 object-cover hover:scale-105 transition-transform duration-300 transform"
 				/>
 			</div>
 			<div className="flex-1 p-4 pr-0 rounded-r-md">
 				<div className="flex flex-col h-full">
 					<div className="flex justify-between">
-						<p
-							className={`font-bold ${titleMain.className} text-3xl capitalize w-[70%] `}
-						>
+						<p className="w-[70%] font-heading font-bold text-3xl capitalize">
 							{post?.title}
 						</p>
-						<p className="text-right flex flex-col justify-items-end text-slate-500">
+						<p className="flex flex-col justify-items-end text-slate-500 text-right">
 							<span>{post?.author.name}</span>
 							<span className="text-xs">
 								{formatDistanceToNow(post?.createdAt ?? new Date(), { locale })}
@@ -57,7 +55,7 @@ export function BreakNews() {
 						</p>
 					</div>
 
-					<p className="mt-4 line-clamp-5 text-green-400 text-justify text-xl dark:text-slate-300">
+					<p className="mt-4 text-green-400 dark:text-slate-300 text-xl text-justify line-clamp-5">
 						{post?.content}
 					</p>
 				</div>

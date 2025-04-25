@@ -7,9 +7,9 @@ const titleMain = Anton({ subsets: ["latin"], weight: "400" });
 
 export default function Header() {
 	return (
-		<section className="top-0 z-50 sticky flex sm:flex-row flex-col justify-items-center sm:justify-between items-center border-slate-600/50 backdrop-blur-lg backdrop-brightness-90 mb-4 sm:border-b w-full sm:h-[10vh]">
+		<section className="top-0 z-50 sticky flex sm:flex-row flex-col sm:justify-between justify-items-center items-center backdrop-blur-lg backdrop-brightness-90 mb-4 p-2 border-slate-600/50 sm:border-b w-full">
 			<div className="flex flex-row items-center gap-4 p-4">
-				<div className="shadow-xl m-4 border rounded-full overflow-hidden">
+				<div className="shadow-xl border rounded-full overflow-hidden">
 					<Image
 						src={logo}
 						alt=""

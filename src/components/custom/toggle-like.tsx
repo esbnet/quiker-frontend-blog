@@ -1,20 +1,20 @@
 "use client";
 
-import { BiLike, BiSolidLike } from "react-icons/bi";
-import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { BiLike, BiSolidLike } from "react-icons/bi";
 
-import { ImSpinner9 } from "react-icons/im";
 import type { LikeType } from "@/@types/like-type";
 import { api } from "@/lib/api";
 import { queryClient } from "@/lib/react-query";
+import { ImSpinner9 } from "react-icons/im";
 
 type LikeProps = {
-	authorId: string;
+	userId: string;
 	postId: string;
 };
 
-export function ToggleLike({ authorId, postId }: LikeProps) {
+export function ToggleLike({ userId, postId }: LikeProps) {
 	const [liked, setLiked] = useState<boolean>();
 
 	// Obter dados de like do banco
@@ -23,10 +23,10 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 		isLoading,
 		isError,
 	} = useQuery({
-		queryKey: ["get-like", authorId, postId],
+		queryKey: ["get-like", userId, postId],
 		queryFn: async () => {
 			const response = await api.post("/post/like", {
-				authorId,
+				authorId: userId,
 				postId,
 			});
 			return response.data;
@@ -39,10 +39,10 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 		mutationFn: (updates: LikeType) => api.put("/post/like", updates),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
-				queryKey: ["get-like", authorId, postId],
+				queryKey: ["get-like", userId, postId],
 			});
 			queryClient.invalidateQueries({
-				queryKey: ["get-dislike", authorId, postId],
+				queryKey: ["get-dislike", userId, postId],
 			});
 			queryClient.invalidateQueries({
 				queryKey: ["post", postId],
@@ -66,7 +66,7 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 			updateLike({
 				id: likeData.id,
 				postId,
-				authorId,
+				authorId: userId,
 				like: !liked,
 				createdAt: Date.now().toString(),
 			});
@@ -80,7 +80,7 @@ export function ToggleLike({ authorId, postId }: LikeProps) {
 	return (
 		<span
 			title="Gostei desse post. 👏 "
-			className="flex items-center hover:text-indigo-600 transform transition-transform duration-300 cursor-pointer hover:scale-125"
+			className="flex items-center hover:text-indigo-600 hover:scale-125 transition-transform duration-300 cursor-pointer transform"
 		>
 			{liked ? (
 				<BiSolidLike className="w-6 h-6" onClick={handleClick} />

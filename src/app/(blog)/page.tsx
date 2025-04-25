@@ -17,10 +17,10 @@ export default function PostsPage() {
 				<div>
 					{user ? (
 						<Button
-							title="Novo post 📰 "
+							title="Novo post 📰"
 							variant={"ghost"}
 							onClick={() => router.push("/post/0/new")}
-							className="flex items-center hover:text-indigo-600 transform transition-transform duration-300 cursor-pointer hover:scale-125 object-cover"
+							className="flex items-center object-cover hover:text-indigo-600 hover:scale-125 transition-transform duration-300 cursor-pointer transform"
 						>
 							<FaPlus size={24} />
 						</Button>
@@ -30,7 +30,7 @@ export default function PostsPage() {
 				</div>
 			</div>
 
-			<h2 className="font-bold text-3xl">Destaque do dia</h2>
+			<h2 className="font-heading font-bold text-3xl">Destaque do dia</h2>
 			<BreakNews />
 
 			<h2 className="font-bold text-3xl">Mais recentes</h2>

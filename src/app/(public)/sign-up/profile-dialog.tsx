@@ -81,7 +81,7 @@ export function ProfileDialog() {
 			<DialogTrigger asChild>
 				<Button
 					variant={"ghost"}
-					className="flex flex-col gap-2"
+					className="flex flex-col justify-center items-center"
 					title="Editar Perfil"
 				>
 					<Image
@@ -89,12 +89,12 @@ export function ProfileDialog() {
 						alt=""
 						width={40}
 						height={40}
-						className="hover:border-slate-600 shadow-lg hover:border rounded-full w-10 h-10"
+						className="shadow-lg md:mb-0 hover:border hover:border-slate-600 rounded-full outline outline-1 outline-slate-700 outline-offset-2 w-8 md:w-10 h-8 md:h-10"
 					/>
-					<p className="text-[10px]">{user?.name}</p>
+					<p className="hidden md:flex text-[10px]">{user?.name}</p>
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="flex flex-col justify-between items-center gap-8 border-slate-600 dark:border-slate-800 bg-slate-800/90 dark:bg-slate-800/80 shadow-xl p-8 border rounded-xl w-full sm:max-w-[480px] text-slate-200">
+			<DialogContent className="flex flex-col justify-between items-center gap-8 bg-slate-800/90 dark:bg-slate-800/80 shadow-xl p-8 border border-slate-600 dark:border-slate-800 rounded-xl w-full sm:max-w-[480px] text-slate-200">
 				<DialogHeader>
 					<DialogTitle>Editar perfil</DialogTitle>
 					<DialogDescription>
@@ -140,7 +140,7 @@ export function ProfileDialog() {
 					</div>
 					<div className="flex gap-4 m-6">
 						<Button
-							className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-md text-white"
+							className="bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-gray-500/50 hover:shadow-lg py-2 rounded-md w-full hover:font-bold text-md text-white text-center"
 							type="submit"
 							title="Registre-se e contribuia com o blog"
 							disabled={false}
@@ -148,7 +148,7 @@ export function ProfileDialog() {
 							Salvar
 						</Button>
 						<Button
-							className="flex-1 bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-lg hover:shadow-gray-500/50 py-2 rounded-md w-full hover:font-bold text-center text-md text-white"
+							className="flex-1 bg-gradient-to-r from-[#4D23F0] from-10% to-[#120633] to-90% shadow-lg hover:shadow-gray-500/50 hover:shadow-lg py-2 rounded-md w-full hover:font-bold text-md text-white text-center"
 							title="Registre-se e contribuia com o blog"
 							onClick={() => setisOpen(false)}
 						>
